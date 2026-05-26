@@ -95,11 +95,20 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t py-8" style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            {/* Copyright */}
-            <span className="text-xs text-neutral-400">
-              © {new Date().getFullYear()} Essence. All rights reserved.
-            </span>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="flex flex-col gap-4 w-full md:w-auto">
+              {/* Copyright */}
+              <span className="text-xs text-neutral-400">
+                © {new Date().getFullYear()} Essence. All rights reserved.
+              </span>
+              
+              {/* Region/Country Selector */}
+              {regions && regions.length > 0 && (
+                <div className="w-full md:w-64">
+                  <CountrySelect regions={regions} className="bg-transparent border-white/20 hover:border-white/40" />
+                </div>
+              )}
+            </div>
 
             {/* Links */}
             <div className="flex flex-wrap justify-center md:justify-start items-center gap-6 text-xs">
