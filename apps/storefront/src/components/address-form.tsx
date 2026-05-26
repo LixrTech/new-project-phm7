@@ -72,6 +72,17 @@ const AddressForm = ({
       (country) => country.code === addressFormData.country_code
     )
     if (!countryCodeExists) newErrors.country_code = "Country is invalid"
+    
+    // Phone is required for shipping providers
+    if (!addressFormData.phone?.trim())
+      newErrors.phone = "Phone number is required"
+    
+    // Province/state is required for US addresses (ShipStation requirement)
+    if (addressFormData.country_code === "us" && !addressFormData.province?.trim()) {
+      newErrors.province = "State is required for US addresses"
+    } else if (addressFormData.country_code === "us" && addressFormData.province && addressFormData.province.length !== 2) {
+      newErrors.province = "Use 2-letter state code (e.g., CA, NY, TX)"
+    }
 
     setErrors(newErrors)
     const isValid = Object.keys(newErrors).length === 0
@@ -222,9 +233,13 @@ const AddressForm = ({
             type="text"
             autoComplete="address-level1"
             value={addressFormData.province || ""}
-            onChange={(e) => handleChange("province", e.target.value)}
-            placeholder="State / Province"
+            onChange={(e) => handleChange("province", e.target.value.toUpperCase())}
+            placeholder={addressFormData.country_code === "us" ? "CA" : "State / Province"}
+            maxLength={addressFormData.country_code === "us" ? 2 : undefined}
           />
+          {errors.province && touchedFields.province && (
+            <div className="text-rose-900 text-sm mt-1">{errors.province}</div>
+          )}
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="postal_code" className="block text-sm font-medium">
@@ -292,6 +307,9 @@ const AddressForm = ({
           onChange={(e) => handleChange("phone", e.target.value)}
           placeholder="Phone number"
         />
+        {errors.phone && touchedFields.phone && (
+          <div className="text-rose-900 text-sm mt-1">{errors.phone}</div>
+        )}
       </div>
 
       {/* Action buttons */}
