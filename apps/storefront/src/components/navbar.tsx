@@ -41,10 +41,8 @@ export const Navbar = () => {
       const currentScrollY = window.scrollY
       
       if (currentScrollY > lastScrollY && currentScrollY > 50) {
-        // Scrolling down
         setIsVisible(false)
       } else {
-        // Scrolling up
         setIsVisible(true)
       }
       
@@ -58,163 +56,33 @@ export const Navbar = () => {
   return (
     <>
       <div 
-        className={`fixed top-0 inset-x-0 z-50 bg-neutral-50 isolate transition-transform duration-300 ${
+        className={`fixed top-0 inset-x-0 z-50 bg-white isolate transition-transform duration-300 ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        {/* Announcement Bar */}
-        <div className="bg-neutral-50 border-b border-neutral-200 py-2 text-center text-sm text-neutral-700">
-          <p>Free shipping available on all orders</p>
-        </div>
-        <header className="relative h-20 mx-auto border-b border-neutral-200">
-          <nav className="content-container flex items-center justify-between w-full h-full">
-            {/* Left: Logo + Navigation */}
-            <div className="flex items-center gap-x-12 h-full">
-              {/* Logo */}
+        <header className="relative h-16 mx-auto border-b border-neutral-200">
+          <nav className="content-container flex items-center justify-between w-full h-full relative">
+            {/* Left: SHOP Link */}
+            <div className="flex items-center gap-x-8 h-full">
+              <Link
+                to="/$countryCode/store"
+                params={{ countryCode: countryCode || "us" }}
+                className="text-xs uppercase tracking-wider hover:text-neutral-500 transition-colors font-medium"
+              >
+                SHOP
+              </Link>
+            </div>
+            
+            {/* Center: Logo */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
               <Link
                 to="/$countryCode"
                 params={{ countryCode: countryCode || "us" }}
-                className="text-xl font-display font-semibold hover:text-neutral-600 uppercase tracking-tight transition-colors"
+                className="text-2xl font-display hover:text-neutral-600 transition-colors tracking-wider"
+                style={{ fontWeight: 400, letterSpacing: '0.15em' }}
               >
-                Essentials
+                ESSENCE
               </Link>
-
-              {/* Desktop Navigation Links */}
-              <NavigationMenu.Root className="hidden lg:flex items-center h-full relative">
-                <NavigationMenu.List className="flex items-center gap-x-8 h-full">
-                  {/* Tops dropdown */}
-                  {topsCategory && (
-                    <NavigationMenu.Item className="relative">
-                      <NavigationMenu.Trigger className="text-neutral-700 hover:text-neutral-900 flex items-center gap-1 select-none transition-colors text-sm py-2 px-1 group">
-                        Tops
-                        <svg
-                          className="w-3 h-3 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </NavigationMenu.Trigger>
-                      <NavigationMenu.Content className="absolute left-0 top-full mt-2 bg-white border border-neutral-200 shadow-lg rounded-md min-w-[200px] z-50 data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
-                        <div className="flex flex-col py-2">
-                          <NavigationMenu.Link asChild>
-                            <Link
-                              to="/$countryCode/categories/$handle"
-                              params={{ countryCode: countryCode || "us", handle: topsCategory.handle }}
-                              className="px-6 py-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 text-sm font-semibold transition-colors"
-                            >
-                              All Tops
-                            </Link>
-                          </NavigationMenu.Link>
-                          {topsCategory.category_children?.map((subcategory) => (
-                            <NavigationMenu.Link key={subcategory.id} asChild>
-                              <Link
-                                to="/$countryCode/categories/$handle"
-                                params={{ countryCode: countryCode || "us", handle: subcategory.handle }}
-                                className="px-6 py-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 text-sm transition-colors"
-                              >
-                                {subcategory.name}
-                              </Link>
-                            </NavigationMenu.Link>
-                          ))}
-                        </div>
-                      </NavigationMenu.Content>
-                    </NavigationMenu.Item>
-                  )}
-
-                  {/* Bottoms dropdown */}
-                  {bottomsCategory && (
-                    <NavigationMenu.Item className="relative">
-                      <NavigationMenu.Trigger className="text-neutral-700 hover:text-neutral-900 flex items-center gap-1 select-none transition-colors text-sm py-2 px-1 group">
-                        Bottoms
-                        <svg
-                          className="w-3 h-3 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </NavigationMenu.Trigger>
-                      <NavigationMenu.Content className="absolute left-0 top-full mt-2 bg-white border border-neutral-200 shadow-lg rounded-md min-w-[200px] z-50 data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
-                        <div className="flex flex-col py-2">
-                          <NavigationMenu.Link asChild>
-                            <Link
-                              to="/$countryCode/categories/$handle"
-                              params={{ countryCode: countryCode || "us", handle: bottomsCategory.handle }}
-                              className="px-6 py-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 text-sm font-semibold transition-colors"
-                            >
-                              All Bottoms
-                            </Link>
-                          </NavigationMenu.Link>
-                          {bottomsCategory.category_children?.map((subcategory) => (
-                            <NavigationMenu.Link key={subcategory.id} asChild>
-                              <Link
-                                to="/$countryCode/categories/$handle"
-                                params={{ countryCode: countryCode || "us", handle: subcategory.handle }}
-                                className="px-6 py-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 text-sm transition-colors"
-                              >
-                                {subcategory.name}
-                              </Link>
-                            </NavigationMenu.Link>
-                          ))}
-                        </div>
-                      </NavigationMenu.Content>
-                    </NavigationMenu.Item>
-                  )}
-
-                  {/* Collections dropdown */}
-                  <NavigationMenu.Item className="relative">
-                    <NavigationMenu.Trigger className="text-neutral-700 hover:text-neutral-900 flex items-center gap-1 select-none transition-colors text-sm py-2 px-1 group">
-                      Collections
-                      <svg
-                        className="w-3 h-3 transition-transform duration-200 group-data-[state=open]:rotate-180"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </NavigationMenu.Trigger>
-                    <NavigationMenu.Content className="absolute left-0 top-full mt-2 bg-white border border-neutral-200 shadow-lg rounded-md min-w-[200px] z-50 data-[motion=from-start]:animate-enterFromLeft data-[motion=from-end]:animate-enterFromRight data-[motion=to-start]:animate-exitToLeft data-[motion=to-end]:animate-exitToRight">
-                      <div className="flex flex-col py-2">
-                        <NavigationMenu.Link asChild>
-                          <Link
-                            to="/$countryCode/store"
-                            params={{ countryCode: countryCode || "us" }}
-                            className="px-6 py-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 text-sm font-semibold transition-colors"
-                          >
-                            Shop All
-                          </Link>
-                        </NavigationMenu.Link>
-                        {collections?.map((collection) => (
-                          <NavigationMenu.Link key={collection.id} asChild>
-                            <Link
-                              to="/$countryCode/collections/$handle"
-                              params={{ countryCode: countryCode || "us", handle: collection.handle }}
-                              className="px-6 py-3 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 text-sm transition-colors"
-                            >
-                              {collection.title}
-                            </Link>
-                          </NavigationMenu.Link>
-                        ))}
-                      </div>
-                    </NavigationMenu.Content>
-                  </NavigationMenu.Item>
-                  
-                  <NavigationMenu.Item>
-                    <NavigationMenu.Link asChild>
-                      <a
-                        href={`${baseHref}/about`}
-                        className="text-neutral-700 hover:text-neutral-900 transition-colors text-sm py-2"
-                      >
-                        About
-                      </a>
-                    </NavigationMenu.Link>
-                  </NavigationMenu.Item>
-                </NavigationMenu.List>
-              </NavigationMenu.Root>
             </div>
 
             {/* Right: Utility Icons */}
@@ -235,9 +103,20 @@ export const Navbar = () => {
                 </DrawerTrigger>
                 <DrawerContent side="left">
                   <DrawerHeader>
-                    <DrawerTitle className="uppercase font-display text-lg tracking-wide">Menu</DrawerTitle>
+                    <DrawerTitle className="uppercase font-display text-lg tracking-wider">Menu</DrawerTitle>
                   </DrawerHeader>
                   <div className="flex flex-col py-4">
+                    {/* Shop All */}
+                    <DrawerClose asChild>
+                      <Link
+                        to="/$countryCode/store"
+                        params={{ countryCode: countryCode || "us" }}
+                        className="px-6 py-4 text-neutral-900 text-base font-medium uppercase tracking-wide hover:bg-sand-50"
+                      >
+                        Shop All
+                      </Link>
+                    </DrawerClose>
+
                     {/* Tops */}
                     {topsCategory && (
                       <>
@@ -249,7 +128,7 @@ export const Navbar = () => {
                             <Link
                               to="/$countryCode/categories/$handle"
                               params={{ countryCode: countryCode || "us", handle: topsCategory.handle }}
-                              className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors font-semibold"
+                              className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors font-medium"
                             >
                               All Tops
                             </Link>
@@ -280,7 +159,7 @@ export const Navbar = () => {
                             <Link
                               to="/$countryCode/categories/$handle"
                               params={{ countryCode: countryCode || "us", handle: bottomsCategory.handle }}
-                              className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors font-semibold"
+                              className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors font-medium"
                             >
                               All Bottoms
                             </Link>
@@ -301,37 +180,32 @@ export const Navbar = () => {
                     )}
 
                     {/* Collections */}
-                    <div className="px-6 py-4 text-neutral-900 text-base font-semibold uppercase tracking-wide">
-                      Collections
-                    </div>
-                    <div className="flex flex-col">
-                      <DrawerClose asChild>
-                        <Link
-                          to="/$countryCode/store"
-                          params={{ countryCode: countryCode || "us" }}
-                          className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors font-semibold"
-                        >
-                          Shop All
-                        </Link>
-                      </DrawerClose>
-                      {collections?.map((collection) => (
-                        <DrawerClose key={collection.id} asChild>
-                          <Link
-                            to="/$countryCode/collections/$handle"
-                            params={{ countryCode: countryCode || "us", handle: collection.handle }}
-                            className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors"
-                          >
-                            {collection.title}
-                          </Link>
-                        </DrawerClose>
-                      ))}
-                    </div>
+                    {collections && collections.length > 0 && (
+                      <>
+                        <div className="px-6 py-4 text-neutral-900 text-base font-semibold uppercase tracking-wide">
+                          Collections
+                        </div>
+                        <div className="flex flex-col">
+                          {collections.map((collection) => (
+                            <DrawerClose key={collection.id} asChild>
+                              <Link
+                                to="/$countryCode/collections/$handle"
+                                params={{ countryCode: countryCode || "us", handle: collection.handle }}
+                                className="px-10 py-3 text-neutral-600 hover:bg-sand-50 transition-colors"
+                              >
+                                {collection.title}
+                              </Link>
+                            </DrawerClose>
+                          ))}
+                        </div>
+                      </>
+                    )}
 
                     {/* About */}
                     <DrawerClose asChild>
                       <a
                         href={`${baseHref}/about`}
-                        className="px-6 py-4 text-neutral-900 text-base font-semibold uppercase tracking-wide hover:bg-sand-50"
+                        className="px-6 py-4 text-neutral-900 text-base font-medium uppercase tracking-wide hover:bg-sand-50"
                       >
                         About
                       </a>
@@ -341,7 +215,7 @@ export const Navbar = () => {
                     <DrawerClose asChild>
                       <a
                         href={`${baseHref}/account`}
-                        className="px-6 py-4 text-neutral-900 text-base font-semibold uppercase tracking-wide hover:bg-sand-50"
+                        className="px-6 py-4 text-neutral-900 text-base font-medium uppercase tracking-wide hover:bg-sand-50"
                       >
                         Account
                       </a>

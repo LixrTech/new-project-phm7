@@ -108,32 +108,35 @@ const ProductCard = ({ product, variant, selectedColor }: ProductCardProps) => {
     <Link
       to="/$countryCode/products/$handle"
       params={{ countryCode: countryCode || "us", handle: product.handle || "" }}
-      className="group flex flex-col w-full"
+      className="group flex flex-col w-full bg-white"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="aspect-square w-full overflow-hidden bg-[#F5F3F0] relative">
+      <div className="aspect-[3/4] w-full overflow-hidden bg-white relative border border-neutral-100">
         <Thumbnail
           thumbnail={primaryImage}
           alt={product.title}
-          className={`absolute inset-0 object-cover object-center w-full h-full transition-opacity duration-300 ${isHovered && hoverImage ? "opacity-0" : "opacity-100"}`}
+          className={`absolute inset-0 object-contain object-center w-full h-full transition-opacity duration-500 p-4 ${isHovered && hoverImage ? "opacity-0" : "opacity-100"}`}
         />
         {hoverImage && (
           <Thumbnail
             thumbnail={hoverImage}
             alt={`${product.title} - Detail view`}
-            className={`absolute inset-0 object-cover object-center w-full h-full transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 object-contain object-center w-full h-full transition-opacity duration-500 p-4 ${isHovered ? "opacity-100" : "opacity-0"}`}
           />
         )}
       </div>
 
-      <div className="flex text-sm mt-3 justify-between items-start">
-        <span className="text-neutral-800 font-normal tracking-wide">{product.title}</span>
+      <div className="flex flex-col text-center mt-4 gap-2 px-2">
+        <h3 className="text-neutral-900 font-normal text-sm">{product.title}</h3>
         <ProductPrice
           product={product}
           variant={product.variants?.[0]}
-          className="text-neutral-600 font-normal ml-2 whitespace-nowrap"
+          className="text-neutral-600 font-normal text-sm"
         />
+        <p className="text-xs text-neutral-500 line-clamp-2">
+          {(product as any).subtitle || "A captivating blend of rare essences"}
+        </p>
       </div>
     </Link>
   )

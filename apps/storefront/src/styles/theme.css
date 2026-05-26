@@ -1,33 +1,33 @@
 @theme {
-  /* Font Family */
+  /* Font Family - Elegant Serif & Clean Sans */
   --font-sans:
-    Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Ubuntu, sans-serif;
+    "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --font-display:
-    Outfit, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body:
+    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   
-  /* Brand Colors - Scandinavian Athleisure Palette */
-  --color-sand-50: #faf9f7;
-  --color-sand-100: #f5f3ef;
-  --color-sand-200: #ebe8e0;
-  --color-sand-300: #ddd9cd;
-  --color-sand-400: #cac3b3;
-  --color-sand-500: #b5ab95;
-  --color-sand-600: #9d9278;
-  --color-sand-700: #807761;
-  --color-sand-800: #645f4f;
-  --color-sand-900: #4a463c;
+  /* Brand Colors - Luxury Fragrance Palette */
+  --color-sand-50: #faf8f5;
+  --color-sand-100: #f5f1ea;
+  --color-sand-200: #ebe3d5;
+  --color-sand-300: #ddd1bb;
+  --color-sand-400: #cabea0;
+  --color-sand-500: #b5a688;
+  --color-sand-600: #9d8d70;
+  --color-sand-700: #80725a;
+  --color-sand-800: #645a47;
+  --color-sand-900: #4a4235;
   
-  --color-olive-50: #f7f8f5;
-  --color-olive-100: #ecefe5;
-  --color-olive-200: #d7dcc9;
-  --color-olive-300: #b9c4a3;
-  --color-olive-400: #98a67c;
-  --color-olive-500: #7d8c5f;
-  --color-olive-600: #626f4a;
-  --color-olive-700: #4e5a3c;
-  --color-olive-800: #3f4831;
-  --color-olive-900: #2e3424;
+  /* Warm beige/tan for hero sections */
+  --color-beige: #d4c4a8;
+  --color-beige-light: #e8dcc8;
+  --color-beige-dark: #c0b095;
+  
+  /* Dark brown/charcoal for text and footer */
+  --color-charcoal: #2b2621;
+  --color-charcoal-light: #3d3730;
+  --color-charcoal-dark: #1a1714;
 
   /* Animation */
   --animation-ring: ring 2.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

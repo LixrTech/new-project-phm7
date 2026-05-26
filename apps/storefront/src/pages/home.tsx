@@ -1,138 +1,163 @@
 import { useLocation, useLoaderData, Link } from "@tanstack/react-router"
 import { getCountryCodeFromPath } from "@/lib/utils/region"
 import { useProducts } from "@/lib/hooks/use-products"
-import { useCollections } from "@/lib/hooks/use-collections"
-import { ProductGrid } from "@/components/sections/product-grid"
-import { LifestyleEditorial } from "@/components/sections/lifestyle-editorial"
-import { CollectionShowcase } from "@/components/sections/collection-showcase"
-import { Newsletter } from "@/components/sections/newsletter"
-import { VideoTestimonials } from "@/components/sections/video-testimonials"
-import { ArrowRight } from "@medusajs/icons"
-import { HttpTypes } from "@medusajs/types"
+import ProductCard from "@/components/product-card"
+import { Button } from "@/components/ui/button"
 
-/**
- * Home Page - Premium Athleisure Storefront
- *
- * Features:
- * - Hero banner with CTA
- * - Featured collections
- * - Bestseller products with Quick Buy
- * - Lifestyle editorial section
- * - Promo campaign banner
- * - Newsletter signup
- */
 const Home = () => {
   const location = useLocation()
   const { region } = useLoaderData({ from: "/$countryCode/" })
   const countryCode = getCountryCodeFromPath(location.pathname) || "us"
 
-  // Fetch featured products (showing first 8 products as bestsellers)
   const { data: productsData } = useProducts({
     region_id: region?.id,
     query_params: { 
-      limit: 8,
+      limit: 4,
       fields: "id,title,handle,thumbnail,*images,*variants,*variants.calculated_price",
     },
   })
 
-  // Fetch collections for showcase
-  const { data: collections } = useCollections({
-    fields: "id,title,handle",
-  })
-
-  const collectionsWithImages = collections
-    ? [
-        {
-          id: collections[0]?.id || "",
-          title: collections[0]?.title || "",
-          handle: collections[0]?.handle || "",
-          imageUrl: "https://cdn.mignite.app/ws/works_01KGFKTHDC6ZD3WS7GQTX8992N/NanoBanana-2026-02-04-01KGMCGE8HA4MP3JQAJ1PAEGGX.png",
-        },
-        {
-          id: collections[1]?.id || "",
-          title: collections[1]?.title || "",
-          handle: collections[1]?.handle || "",
-          imageUrl: "https://cdn.mignite.app/ws/works_01KGFKTHDC6ZD3WS7GQTX8992N/NanoBanana-2026-02-04-1--01KGMCJ09NGECFMM8QVAY13MY3.png",
-        },
-        {
-          id: collections.find((c: HttpTypes.StoreCollection) => c.handle === "outer-layers")?.id || collections[2]?.id || "",
-          title: collections.find((c: HttpTypes.StoreCollection) => c.handle === "outer-layers")?.title || collections[2]?.title || "",
-          handle: "outer-layers",
-          imageUrl: "https://cdn.mignite.app/ws/works_01KGFKTHDC6ZD3WS7GQTX8992N/Gro-nano_banana_pro_20260204_133831_1--01KGMCNPB3SC30ZKSH1ZPWX149.jpeg",
-        },
-      ]
-    : []
+  const products = productsData?.pages?.[0]?.products || []
 
   return (
     <div className="min-h-screen">
-      {/* Sticky background video */}
-      <div className="sticky top-0 w-full h-[100vh] overflow-hidden -z-10">
-        <video
-          src="https://cdn.mignite.app/ws/works_01KGFKTHDC6ZD3WS7GQTX8992N/Bring_a_bit_202602041404_u6uf6-01KGMC3H3BPBGYA1KXAMFFT0AM.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-          style={{ objectPosition: "center center" }}
-        />
-      </div>
+      {/* Hero Section - Warm Beige with Product */}
+      <section 
+        className="relative min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: '#d4c4a8' }}
+      >
+        <div className="content-container grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-32">
+          {/* Left: Text */}
+          <div className="flex flex-col gap-8">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display text-white leading-tight">
+              The Art of Fragrance
+            </h1>
+            <p className="text-lg text-white/90 max-w-md leading-relaxed">
+              Discover our curated collection of luxury perfumes, crafted with the finest ingredients.
+            </p>
+            <div>
+              <Link
+                to="/$countryCode/store"
+                params={{ countryCode }}
+              >
+                <Button 
+                  className="bg-white text-neutral-900 hover:bg-neutral-100 px-8 py-6 text-sm uppercase tracking-wider font-medium"
+                >
+                  Explore Collection
+                </Button>
+              </Link>
+            </div>
+          </div>
 
-      {/* Hero content that scrolls */}
-      <div className="relative -mt-[100vh] pt-48 h-[100vh] flex items-center justify-center">
+          {/* Right: Product Image */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-md aspect-[3/4]">
+              {products[0]?.thumbnail && (
+                <img
+                  src={products[0].thumbnail}
+                  alt="Featured Fragrance"
+                  className="w-full h-full object-contain drop-shadow-2xl"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Crafted with Intention Section */}
+      <section className="bg-white py-24">
+        <div className="content-container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Left: Image */}
+            <div className="relative aspect-square bg-neutral-100 overflow-hidden">
+              {products[1]?.thumbnail && (
+                <img
+                  src={products[1].thumbnail}
+                  alt="Craftsmanship"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+
+            {/* Right: Text */}
+            <div className="flex flex-col gap-8">
+              <h2 className="text-4xl md:text-5xl font-display text-neutral-900 leading-tight">
+                Crafted with Intention
+              </h2>
+              <div className="space-y-4 text-neutral-600 leading-relaxed">
+                <p>
+                  Each fragrance in our collection tells a story, blending rare essences and timeless craftsmanship.
+                </p>
+                <p>
+                  From the first note to the lingering finish, our perfumes are designed to evoke emotion and leave a lasting impression.
+                </p>
+              </div>
+              <div>
+                <Link
+                  to="/$countryCode/store"
+                  params={{ countryCode }}
+                >
+                  <Button 
+                    variant="secondary"
+                    className="border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white px-8 py-6 text-sm uppercase tracking-wider font-medium"
+                  >
+                    View All
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Arrivals Section */}
+      <section className="bg-neutral-50 py-24">
+        <div className="content-container">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-display text-neutral-900 mb-4">
+              New Arrivals
+            </h2>
+            <p className="text-neutral-600 max-w-2xl mx-auto">
+              Explore our latest fragrances, each one a masterpiece of perfumery
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {products.slice(0, 4).map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                variant={product.variants?.[0]}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Philosophy Section - Dark */}
+      <section 
+        className="py-32"
+        style={{ backgroundColor: '#2b2621' }}
+      >
         <div className="content-container text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-semibold text-neutral-900 mb-6 tracking-tight">
-            Movement, simplified.
-          </h1>
-          <p className="md:text-xl mb-8 max-w-2xl mx-auto text-white">
-            Scandinavian-inspired athleisure designed for everyday balance.
+          <h2 className="text-4xl md:text-5xl font-display text-white mb-8">
+            A Philosophy of Scent
+          </h2>
+          <p className="text-lg text-white/80 max-w-3xl mx-auto leading-relaxed mb-12">
+            We believe fragrance is an intimate expression of self. Our perfumes are crafted to enhance your presence, to whisper rather than shout, to linger in memory long after you've left the room.
           </p>
           <Link
-            to="/$countryCode/collections/$handle"
-            params={{ countryCode, handle: "core-essentials" }}
-            className="inline-flex items-center gap-2 bg-neutral-900 text-neutral-50 px-8 py-4 hover:bg-neutral-800 transition-colors uppercase text-xs font-semibold tracking-wider"
+            to="/$countryCode/store"
+            params={{ countryCode }}
           >
-            Shop Core Essentials
-            <ArrowRight className="w-4 h-4" />
+            <Button 
+              className="bg-white text-neutral-900 hover:bg-neutral-100 px-8 py-6 text-sm uppercase tracking-wider font-medium"
+            >
+              Discover Your Signature
+            </Button>
           </Link>
         </div>
-      </div>
-
-      {/* Content wrapper with background that slides over video */}
-      <div className="relative z-20 bg-white">
-        {/* Featured Products Grid */}
-        {productsData && productsData.pages?.[0]?.products && (
-          <ProductGrid
-            title="Elevated essentials for everyday."
-            description="Functional athleisure made of premium materials to improve your life in small but mighty ways."
-            products={productsData.pages[0].products as { id: string; title: string; handle: string; thumbnail?: string; variants?: Array<{ id: string; calculated_price?: { calculated_amount: number; currency_code: string } }> }[]}
-            countryCode={countryCode}
-            showQuickBuy={true}
-          />
-        )}
-
-
-
-      {/* Lifestyle Editorial */}
-      <LifestyleEditorial
-        title="Built for the in-between"
-        description="Essentials is built for the in-between moments — the walk to the studio, the coffee after training, the quiet hours at home."
-        ctaText="Our Story"
-        ctaHref={`/${countryCode}/about`}
-        imageUrl="https://cdn.mignite.app/ws/works_01KGFKTHDC6ZD3WS7GQTX8992N/nano_banana_pro_20260204_141238_1-01KGMCQQ1KXNTY3K55VA3T84KE.png"
-      />
-
-      {/* Collection Showcase */}
-      {collectionsWithImages.length > 0 && (
-        <CollectionShowcase collections={collectionsWithImages} countryCode={countryCode} />
-      )}
-
-        {/* Video & Testimonials */}
-        <VideoTestimonials />
-
-        {/* Newsletter Signup */}
-        <Newsletter />
-      </div>
+      </section>
     </div>
   )
 }

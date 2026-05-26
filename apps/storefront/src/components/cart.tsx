@@ -418,26 +418,26 @@ export const CartDropdown = () => {
         <button className="relative flex items-center justify-center text-neutral-700 hover:text-neutral-900 transition-colors">
           <ShoppingBag className="w-5 h-5" />
           {itemCount > 0 && (
-            <span className="absolute -top-1 -right-1 bg-neutral-900 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
+            <span className="absolute -top-1 -right-1 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center" style={{ backgroundColor: '#2b2621' }}>
               {itemCount}
             </span>
           )}
         </button>
       </DrawerTrigger>
 
-      <DrawerContent className="flex flex-col">
-        <DrawerHeader>
-          <DrawerTitle>Shopping Cart</DrawerTitle>
+      <DrawerContent className="flex flex-col bg-white">
+        <DrawerHeader className="border-b border-neutral-200">
+          <DrawerTitle className="font-display text-2xl tracking-wider" style={{ fontWeight: 400 }}>Cart</DrawerTitle>
         </DrawerHeader>
 
         {/* Empty Cart */}
         {(!cart || itemCount === 0) && (
           <div className="flex flex-col items-center justify-center flex-1 p-6">
-            <span className="text-base font-medium text-zinc-600 mb-4">
+            <span className="text-base text-neutral-600 mb-4">
               Your cart is empty
             </span>
             <Link to="/$countryCode/store" params={{ countryCode: countryCode || "us" }} onClick={closeCart}>
-              <Button variant="secondary" size="fit">
+              <Button variant="secondary" className="border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white uppercase text-xs tracking-wider">
                 Explore products
               </Button>
             </Link>
@@ -447,7 +447,7 @@ export const CartDropdown = () => {
         {/* Cart Items */}
         {cart && itemCount > 0 && (
           <>
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {sortedItems?.map((item) => (
                 <CartLineItem
                   key={item.id}
@@ -459,15 +459,15 @@ export const CartDropdown = () => {
               ))}
             </div>
 
-            <DrawerFooter>
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-base font-medium text-zinc-600">Subtotal</span>
-                <Price price={cart.item_subtotal} currencyCode={cart.currency_code} />
+            <DrawerFooter className="border-t border-neutral-200 bg-white">
+              <div className="flex items-center justify-between mb-6 text-base">
+                <span className="text-neutral-900 uppercase tracking-wide text-sm">Subtotal</span>
+                <Price price={cart.item_subtotal} currencyCode={cart.currency_code} className="text-neutral-900 font-medium" />
               </div>
 
               <Link to="/$countryCode/cart" params={{ countryCode: countryCode || "us" }} onClick={closeCart}>
-                <Button className="w-full" variant="primary">
-                  Go to cart
+                <Button className="w-full text-white uppercase text-xs tracking-wider font-medium py-6" style={{ backgroundColor: '#2b2621' }}>
+                  View Cart
                 </Button>
               </Link>
             </DrawerFooter>
