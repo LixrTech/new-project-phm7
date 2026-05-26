@@ -3,6 +3,14 @@ import { defineConfig, loadEnv } from "@medusajs/framework/utils";
 loadEnv(process.env.NODE_ENV || "development", process.cwd());
 
 module.exports = defineConfig({
+  plugins: [
+    {
+      resolve: '@lambdacurry/medusa-product-reviews',
+      options: {
+        defaultReviewStatus: 'approved',
+      },
+    },
+  ],
   admin: {
     vite: () => {
       let hmrServer;

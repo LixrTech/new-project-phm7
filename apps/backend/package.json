@@ -24,6 +24,7 @@
     "email:dev": "email-preview --dir ./src/email-templates --port 9004 --hostname 0.0.0.0"
   },
   "dependencies": {
+    "@lambdacurry/medusa-product-reviews": "^0.0.13",
     "@medusajs/admin-sdk": "2.15.3",
     "@medusajs/admin-shared": "2.15.3",
     "@medusajs/cli": "2.15.3",
