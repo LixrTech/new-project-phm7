@@ -279,13 +279,17 @@ const Store = () => {
       ) : (
         <>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-10 py-6 md:py-8">
-            {filteredAndSortedItems.map((item, index) => (
-              <ProductCard 
-                key={`${item.product?.id && item.product.id.trim() ? item.product.id : `p-${index}`}-${item.variant?.id && item.variant.id.trim() ? item.variant.id : `v-${index}`}`}
-                product={item.product}
-                variant={item.variant}
-              />
-            ))}
+            {filteredAndSortedItems.map((item, index) => {
+              const productId = item.product?.id?.trim() || `p-${index}`
+              const variantId = item.variant?.id?.trim() || `v-${index}`
+              return (
+                <ProductCard 
+                  key={`${productId}-${variantId}`}
+                  product={item.product}
+                  variant={item.variant}
+                />
+              )
+            })}
           </div>
 
           {hasNextPage && (

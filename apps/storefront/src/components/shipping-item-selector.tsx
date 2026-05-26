@@ -34,8 +34,11 @@ const ShippingItemSelector = ({
       return
     }
 
-    // Only calculate price if cart has required address fields
-    if (!cart.shipping_address?.postal_code || !cart.shipping_address?.phone) {
+    // Only calculate price if cart has required address fields with actual values
+    const postalCode = cart.shipping_address?.postal_code?.trim()
+    const phone = cart.shipping_address?.phone?.trim()
+    
+    if (!postalCode || !phone) {
       return
     }
 
