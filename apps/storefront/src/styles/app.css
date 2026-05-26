@@ -1,18 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @config "../../tailwind.config.js";
 @import "./theme.css";
 
 @layer base {
   :root {
-    @apply bg-neutral-50 text-neutral-900 antialiased;
+    @apply bg-white text-neutral-800 antialiased;
     text-rendering: optimizeLegibility;
-    letter-spacing: -0.01em;
+    letter-spacing: normal;
+    font-family: var(--font-body);
   }
   
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+  }
+  
+  body {
+    @apply text-neutral-700;
   }
 }
 

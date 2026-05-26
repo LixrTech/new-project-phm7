@@ -244,10 +244,13 @@ const Store = () => {
   return (
     <div className="content-container pt-32 pb-12">
       {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-4xl font-display font-semibold text-neutral-900 tracking-tight">
-          All Products
+      <div className="mb-12 text-center">
+        <h1 className="text-5xl font-display text-neutral-900 mb-4">
+          New Arrivals
         </h1>
+        <p className="text-neutral-600 max-w-2xl mx-auto">
+          Explore our latest fragrances, each one a masterpiece of perfumery
+        </p>
       </div>
 
       {/* Filter Bar */}
@@ -263,12 +266,12 @@ const Store = () => {
 
       {/* Products */}
       {isFetching && filteredAndSortedItems.length === 0 ? (
-        <div className="text-neutral-600 py-12">Loading...</div>
+        <div className="text-neutral-600 py-12 text-center">Loading...</div>
       ) : filteredAndSortedItems.length === 0 ? (
-        <div className="text-neutral-600 py-12">No products found</div>
+        <div className="text-neutral-600 py-12 text-center">No products found</div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 py-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10 py-8">
             {filteredAndSortedItems.map((item, index) => (
               <ProductCard 
                 key={`${item.product.id}-${item.variant.id}-${index}`}
@@ -284,7 +287,7 @@ const Store = () => {
                 onClick={() => fetchNextPage()}
                 disabled={isFetchingNextPage}
                 variant="secondary"
-                className="px-8 py-3 uppercase text-xs font-semibold tracking-wider"
+                className="border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white px-8 py-3 uppercase text-xs font-medium tracking-wider"
               >
                 {isFetchingNextPage ? "Loading..." : "Load More"}
               </Button>
