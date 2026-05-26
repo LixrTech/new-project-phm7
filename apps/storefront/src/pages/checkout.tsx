@@ -2,6 +2,7 @@ import CheckoutProgress from "@/components/checkout-progress"
 import { CartEmpty } from "@/components/cart"
 import { Breadcrumbs } from "@/components/breadcrumbs"
 import { Loading } from "@/components/ui/loading"
+import { StripeElementsProvider } from "@/components/stripe-elements-provider"
 import { useCart } from "@/lib/hooks/use-cart"
 import { type CheckoutStep, CheckoutStepKey } from "@/lib/types/global"
 import {
@@ -167,18 +168,24 @@ const Checkout = () => {
                   />
                 )}
 
-                {/* Payment Step */}
-                {step === CheckoutStepKey.PAYMENT && (
-                  <PaymentStep
-                    cart={cart}
-                    onNext={handleNext}
-                    onBack={handleBack}
-                  />
-                )}
-
-                {/* Review Step */}
-                {step === CheckoutStepKey.REVIEW && (
-                  <ReviewStep cart={cart} onBack={handleBack} />
+                {/* Payment and Review Steps - Wrapped in Stripe Provider */}
+                {(step === CheckoutStepKey.PAYMENT || step === CheckoutStepKey.REVIEW) && (
+                  <StripeElementsProvider cart={cart}>
+                    <div style={{
+                      display: step !== CheckoutStepKey.PAYMENT ? "none" : "block"
+                    }}>
+                      <PaymentStep
+                        cart={cart}
+                        onNext={handleNext}
+                        onBack={handleBack}
+                      />
+                    </div>
+                    <div style={{
+                      display: step !== CheckoutStepKey.REVIEW ? "none" : "block"
+                    }}>
+                      <ReviewStep cart={cart} onBack={handleBack} />
+                    </div>
+                  </StripeElementsProvider>
                 )}
               </>
             )}

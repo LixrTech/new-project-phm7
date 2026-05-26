@@ -1,5 +1,5 @@
 import PaymentContainer from "@/components/payment-container"
-import StripeCardContainer from "@/components/stripe-card-container"
+import StripePayment from "@/components/stripe-payment"
 import { Button } from "@/components/ui/button"
 import {
   useCartPaymentMethods,
@@ -7,7 +7,7 @@ import {
 } from "@/lib/hooks/use-checkout"
 import { isStripe as isStripeFunc, getActivePaymentSession, isPaidWithGiftCard } from "@/lib/utils/checkout"
 import { HttpTypes } from "@medusajs/types"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, useRef } from "react"
 
 interface PaymentStepProps {
   cart: HttpTypes.StoreCart;
@@ -27,6 +27,10 @@ const PaymentStep = ({ cart, onNext, onBack }: PaymentStepProps) => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(
     activeSession?.provider_id ?? ""
   )
+  const [isPaymentDetailsComplete, setIsPaymentDetailsComplete] = useState(false)
+  
+  const hasInitiatedRef = useRef(false)
+  const sessionTotalRef = useRef<number | null>(null)
 
   const isStripe = isStripeFunc(selectedPaymentMethod)
 
@@ -93,12 +97,9 @@ const PaymentStep = ({ cart, onNext, onBack }: PaymentStepProps) => {
                 onClick={() => handlePaymentMethodChange(paymentMethod.id)}
               >
                 {isStripeFunc(paymentMethod.id) && (
-                  <StripeCardContainer
-                    paymentProviderId={paymentMethod.id}
-                    selectedPaymentOptionId={selectedPaymentMethod}
-                    setError={setError}
-                    onSelect={() => handlePaymentMethodChange(paymentMethod.id)}
-                    onCardComplete={handleSubmit}
+                  <StripePayment
+                    cart={cart}
+                    onPaymentDetailsComplete={setIsPaymentDetailsComplete}
                   />
                 )}
               </PaymentContainer>
@@ -141,15 +142,13 @@ const PaymentStep = ({ cart, onNext, onBack }: PaymentStepProps) => {
         <Button
           onClick={handleSubmit}
           disabled={
-            (isStripe && !activeSession) ||
+            (isStripe && (!activeSession || !isPaymentDetailsComplete)) ||
             (!selectedPaymentMethod && !paidByGiftcard) ||
             initiatePaymentSessionMutation.isPending
           }
           data-testid="submit-payment-button"
         >
-          {!activeSession && isStripeFunc(selectedPaymentMethod)
-            ? "Enter card details"
-            : "Next"}
+          Next
         </Button>
       </div>
     </div>

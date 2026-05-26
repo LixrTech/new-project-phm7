@@ -5,6 +5,7 @@ import { getCountryCodeFromPath } from "@/lib/utils/region"
 import { HttpTypes } from "@medusajs/types"
 import { useLocation, useNavigate } from "@tanstack/react-router"
 import { useState } from "react"
+import { useStripe, useElements } from "@stripe/react-stripe-js"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart;
@@ -39,17 +40,48 @@ const StripePaymentButton = ({
   className?: string;
 }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
   const countryCode = getCountryCodeFromPath(location.pathname)
   const completeOrderMutation = useCompleteCartOrder()
+  const stripe = useStripe()
+  const elements = useElements()
 
   const handlePayment = async () => {
+    if (!stripe || !elements) {
+      setErrorMessage("Payment system not initialized")
+      return
+    }
+
     setErrorMessage(null)
+    setLoading(true)
 
     try {
-      // For demo purposes, we'll complete the order directly
-      // In production, you'd integrate with Stripe's confirmCardPayment
+      // Submit the form to validate
+      const { error: submitError } = await elements.submit()
+      if (submitError) {
+        setErrorMessage(submitError.message || "Payment validation failed")
+        setLoading(false)
+        return
+      }
+
+      // Confirm the payment
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: window.location.origin + `/${countryCode || "us"}/order-confirmation`,
+        },
+        redirect: "if_required",
+      })
+
+      if (error) {
+        setErrorMessage(error.message || "Payment failed")
+        setLoading(false)
+        return
+      }
+
+      // Complete the order
       const order = await completeOrderMutation.mutateAsync()
 
       // Navigate to order confirmation
@@ -62,18 +94,19 @@ const StripePaymentButton = ({
       setErrorMessage(
         error instanceof Error ? error.message : "Payment failed"
       )
+      setLoading(false)
     }
   }
 
   return (
     <>
       <Button
-        disabled={notReady || completeOrderMutation.isPending}
+        disabled={notReady || loading || completeOrderMutation.isPending}
         onClick={handlePayment}
         data-testid="place-order-button"
         className={className}
       >
-        Place Order
+        {loading || completeOrderMutation.isPending ? "Processing..." : "Place Order"}
       </Button>
       {errorMessage && (
         <div className="text-red-500 text-sm mt-2">{errorMessage}</div>
