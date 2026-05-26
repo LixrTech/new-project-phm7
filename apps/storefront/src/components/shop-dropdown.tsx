@@ -56,18 +56,22 @@ export const ShopDropdown = () => {
       <Link
         to="/$countryCode/store"
         params={{ countryCode: countryCode || "us" }}
-        className="text-xs uppercase tracking-wider hover:text-neutral-500 transition-colors font-medium h-full flex items-center"
+        className="text-[11px] sm:text-xs uppercase hover:text-neutral-500 transition-colors font-normal h-full flex items-center"
+        style={{ letterSpacing: '0.2em' }}
       >
         SHOP
       </Link>
 
       {isOpen && (
         <div className="absolute top-full left-0 pt-0 z-50">
-          <div className="bg-white border border-neutral-200 shadow-lg min-w-[280px] py-6">
+          <div className="bg-white border-t border-neutral-200 shadow-md min-w-[240px] py-6 px-6">
             {/* Collections Section */}
             {collections && collections.length > 0 && (
-              <div className="px-8 mb-6">
-                <h3 className="text-[10px] uppercase tracking-[0.15em] text-neutral-400 mb-3 font-medium">
+              <div className="mb-6">
+                <h3 
+                  className="text-[10px] uppercase text-neutral-400 mb-3"
+                  style={{ letterSpacing: '0.15em', fontWeight: 400 }}
+                >
                   COLLECTIONS
                 </h3>
                 <div className="space-y-2">
@@ -79,7 +83,8 @@ export const ShopDropdown = () => {
                         countryCode: countryCode || "us", 
                         handle: collection.handle ?? "" 
                       }}
-                      className="block text-sm text-neutral-700 hover:text-neutral-900 transition-colors font-display"
+                      className="block text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+                      style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                     >
                       {collection.title}
                     </Link>
@@ -90,15 +95,19 @@ export const ShopDropdown = () => {
 
             {/* Categories Section */}
             {categories && categories.length > 0 && (
-              <div className="px-8">
-                <h3 className="text-[10px] uppercase tracking-[0.15em] text-neutral-400 mb-3 font-medium">
+              <div>
+                <h3 
+                  className="text-[10px] uppercase text-neutral-400 mb-3"
+                  style={{ letterSpacing: '0.15em', fontWeight: 400 }}
+                >
                   CATEGORIES
                 </h3>
                 <div className="space-y-2">
                   <Link
                     to="/$countryCode/store"
                     params={{ countryCode: countryCode || "us" }}
-                    className="block text-sm text-neutral-700 hover:text-neutral-900 transition-colors font-display"
+                    className="block text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+                    style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                   >
                     All Fragrances
                   </Link>
@@ -110,7 +119,8 @@ export const ShopDropdown = () => {
                         countryCode: countryCode || "us", 
                         handle: category.handle ?? "" 
                       }}
-                      className="block text-sm text-neutral-700 hover:text-neutral-900 transition-colors font-display"
+                      className="block text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+                      style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                     >
                       {category.name}
                     </Link>
@@ -121,11 +131,12 @@ export const ShopDropdown = () => {
 
             {/* If no collections or categories */}
             {(!collections || collections.length === 0) && (!categories || categories.length === 0) && (
-              <div className="px-8">
+              <div>
                 <Link
                   to="/$countryCode/store"
                   params={{ countryCode: countryCode || "us" }}
-                  className="block text-sm text-neutral-700 hover:text-neutral-900 transition-colors font-display"
+                  className="block text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+                  style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                 >
                   View All Products
                 </Link>

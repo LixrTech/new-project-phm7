@@ -37,24 +37,20 @@ export const Navbar = () => {
       {/* Side Navigation */}
       <SideNavigation isOpen={isSideNavOpen} onClose={() => setIsSideNavOpen(false)} />
 
-      <div 
-        className={`fixed top-0 inset-x-0 z-50 bg-white isolate transition-transform duration-300 ${
-          isVisible ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-        <header className="relative h-16 mx-auto border-b border-neutral-200">
-          <nav className="content-container flex items-center justify-between w-full h-full relative">
-            {/* Left: SHOP Dropdown (Desktop) / Hamburger (Mobile) */}
-            <div className="flex items-center gap-x-8 h-full">
+      <div className="fixed top-0 inset-x-0 z-50 bg-white">
+        <header className="relative h-14 sm:h-16 border-b border-neutral-200">
+          <nav className="flex items-center justify-between w-full h-full px-4 sm:px-6 lg:px-12 max-w-screen-2xl mx-auto">
+            {/* Left: SHOP Button */}
+            <div className="flex items-center h-full">
               {/* Desktop: SHOP Dropdown */}
               <div className="hidden lg:block">
                 <ShopDropdown />
               </div>
               
-              {/* Mobile: Hamburger Menu */}
+              {/* Mobile: SHOP Button opens side nav */}
               <button
                 onClick={() => setIsSideNavOpen(true)}
-                className="lg:hidden text-xs uppercase tracking-wider hover:text-neutral-500 transition-colors font-medium"
+                className="lg:hidden text-[11px] sm:text-xs uppercase tracking-[0.2em] hover:text-neutral-500 transition-colors font-normal"
                 aria-label="Open menu"
               >
                 SHOP
@@ -66,34 +62,23 @@ export const Navbar = () => {
               <Link
                 to="/$countryCode"
                 params={{ countryCode: countryCode || "us" }}
-                className="text-xl md:text-2xl font-display hover:text-neutral-600 transition-colors tracking-wider"
-                style={{ fontWeight: 400, letterSpacing: '0.15em' }}
+                className="text-lg sm:text-xl font-serif hover:text-neutral-600 transition-colors"
+                style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.15em', fontWeight: 400 }}
               >
                 ESSENCE
               </Link>
             </div>
 
             {/* Right: Utility Icons */}
-            <div className="flex items-center gap-x-4 md:gap-x-6 h-full">
+            <div className="flex items-center gap-3 sm:gap-4 h-full">
               {/* Search */}
               <PredictiveSearch />
 
-              {/* Account - Hide on small mobile */}
-              <div className="hidden sm:block">
-                <AccountDropdown />
-              </div>
+              {/* Account */}
+              <AccountDropdown />
 
               {/* Cart */}
               <CartDropdown />
-
-              {/* Mobile Menu Icon (Extra Options) */}
-              <button
-                onClick={() => setIsSideNavOpen(true)}
-                className="lg:hidden text-neutral-700 hover:text-neutral-900"
-                aria-label="Open menu"
-              >
-                <EllipsisHorizontal className="w-6 h-6" />
-              </button>
             </div>
           </nav>
         </header>

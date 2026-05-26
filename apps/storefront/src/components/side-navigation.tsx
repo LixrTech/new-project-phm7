@@ -58,18 +58,18 @@ export const SideNavigation = ({ isOpen, onClose }: SideNavigationProps) => {
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-neutral-200">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-neutral-200">
             <Link
               to="/$countryCode"
               params={{ countryCode: countryCode || "us" }}
-              className="text-xl font-display tracking-[0.15em]"
-              style={{ fontWeight: 400 }}
+              className="text-lg"
+              style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.15em', fontWeight: 400 }}
             >
               ESSENCE
             </Link>
             <button
               onClick={onClose}
-              className="text-neutral-600 hover:text-neutral-900 transition-colors"
+              className="text-neutral-500 hover:text-neutral-900 transition-colors"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -77,14 +77,17 @@ export const SideNavigation = ({ isOpen, onClose }: SideNavigationProps) => {
           </div>
 
           {/* Navigation Content */}
-          <div className="flex-1 overflow-y-auto py-8">
+          <div className="flex-1 overflow-y-auto py-6">
             {/* Collections Section */}
             {collections && collections.length > 0 && (
-              <div className="mb-8">
-                <h3 className="px-6 text-[11px] uppercase tracking-[0.15em] text-neutral-900 mb-4 font-semibold">
+              <div className="mb-6">
+                <h3 
+                  className="px-6 text-[10px] uppercase text-neutral-400 mb-3"
+                  style={{ letterSpacing: '0.15em', fontWeight: 400 }}
+                >
                   COLLECTIONS
                 </h3>
-                <nav className="space-y-1">
+                <nav className="space-y-0.5">
                   {collections.map((collection) => (
                     <Link
                       key={collection.id}
@@ -93,7 +96,8 @@ export const SideNavigation = ({ isOpen, onClose }: SideNavigationProps) => {
                         countryCode: countryCode || "us",
                         handle: collection.handle ?? "",
                       }}
-                      className="block px-6 py-2.5 text-[15px] text-neutral-600 hover:text-neutral-900 hover:bg-sand-50 transition-colors"
+                      className="block px-6 py-2.5 text-sm text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
+                      style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                     >
                       {collection.title}
                     </Link>
@@ -104,15 +108,19 @@ export const SideNavigation = ({ isOpen, onClose }: SideNavigationProps) => {
 
             {/* Categories Section */}
             {categories && categories.length > 0 && (
-              <div className="mb-8">
-                <h3 className="px-6 text-[11px] uppercase tracking-[0.15em] text-neutral-900 mb-4 font-semibold">
+              <div className="mb-6">
+                <h3 
+                  className="px-6 text-[10px] uppercase text-neutral-400 mb-3"
+                  style={{ letterSpacing: '0.15em', fontWeight: 400 }}
+                >
                   CATEGORIES
                 </h3>
-                <nav className="space-y-1">
+                <nav className="space-y-0.5">
                   <Link
                     to="/$countryCode/store"
                     params={{ countryCode: countryCode || "us" }}
-                    className="block px-6 py-2.5 text-[15px] text-neutral-600 hover:text-neutral-900 hover:bg-sand-50 transition-colors"
+                    className="block px-6 py-2.5 text-sm text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
+                    style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                   >
                     All Fragrances
                   </Link>
@@ -124,7 +132,8 @@ export const SideNavigation = ({ isOpen, onClose }: SideNavigationProps) => {
                         countryCode: countryCode || "us",
                         handle: category.handle ?? "",
                       }}
-                      className="block px-6 py-2.5 text-[15px] text-neutral-600 hover:text-neutral-900 hover:bg-sand-50 transition-colors"
+                      className="block px-6 py-2.5 text-sm text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
+                      style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                     >
                       {category.name}
                     </Link>
@@ -134,21 +143,16 @@ export const SideNavigation = ({ isOpen, onClose }: SideNavigationProps) => {
             )}
 
             {/* Additional Links */}
-            <div className="border-t border-neutral-200 pt-6">
-              <nav className="space-y-1">
+            <div className="border-t border-neutral-200 pt-6 mt-6">
+              <nav className="space-y-0.5">
                 <Link
                   to="/$countryCode/account"
                   params={{ countryCode: countryCode || "us" }}
-                  className="block px-6 py-2.5 text-[15px] text-neutral-600 hover:text-neutral-900 hover:bg-sand-50 transition-colors"
+                  className="block px-6 py-2.5 text-sm text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
+                  style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}
                 >
                   Account
                 </Link>
-                <a
-                  href={`/${countryCode}/about`}
-                  className="block px-6 py-2.5 text-[15px] text-neutral-600 hover:text-neutral-900 hover:bg-sand-50 transition-colors"
-                >
-                  About
-                </a>
               </nav>
             </div>
           </div>
