@@ -21,6 +21,9 @@ importers:
 
   apps/backend:
     dependencies:
+      '@lambdacurry/medusa-product-reviews':
+        specifier: ^1.4.0
+        version: 1.4.0(@medusajs/admin-sdk@2.15.3)(@medusajs/cli@2.15.3(@types/node@20.0.0))(@medusajs/framework@2.15.3(@medusajs/cli@2.15.3(@types/node@20.0.0))(@types/node@20.0.0)(ioredis@5.8.2)(vite@5.2.11(@types/node@20.0.0)(lightningcss@1.30.2)(terser@5.44.0))(zod@4.2.0))(@medusajs/icons@2.15.3(react@19.1.1))(@medusajs/medusa@2.15.3)(@medusajs/test-utils@2.15.3)(@medusajs/ui@4.1.13(@types/react-dom@19.1.1(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.8.3))(@mikro-orm/cli@6.6.12(pg@8.20.0))(@mikro-orm/core@6.6.12)(@mikro-orm/knex@6.6.12(@mikro-orm/core@6.6.12)(pg@8.20.0))(@mikro-orm/migrations@6.6.12(@mikro-orm/core@6.6.12)(@types/node@20.0.0)(pg@8.20.0))(@mikro-orm/postgresql@6.6.12(@mikro-orm/core@6.6.12))(@types/node@20.0.0)(awilix@8.0.1)(express@4.21.2)(pg@8.20.0)(react-hook-form@7.49.1(react@19.1.1))
       '@medusajs/admin-sdk':
         specifier: 2.15.3
         version: 2.15.3
@@ -1867,6 +1870,29 @@ packages:
 
   '@js-sdsl/ordered-map@4.4.2':
     resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
+
+  '@lambdacurry/medusa-plugins-sdk@0.0.5':
+    resolution: {integrity: sha512-8325NYK9EHVpuZHKm7P63S5RDo1ls1W+R0d6ZPKq30/y1twvKV8y/7DESpwMcalpN+fbizT35UOD4g236V3ChQ==}
+    engines: {node: '>=20'}
+
+  '@lambdacurry/medusa-product-reviews@1.4.0':
+    resolution: {integrity: sha512-I5Ay4z/XVPZ1KJ5Lyv+76L9Y8hjudB2Jim1e8GnGr138/lUvp7JYsbvOTpqqYoh4Z7TNN9Pb5bb2mA9Dqn7uVw==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@medusajs/admin-sdk': ^2.13.5
+      '@medusajs/cli': ^2.13.5
+      '@medusajs/framework': ^2.13.5
+      '@medusajs/icons': ^2.13.5
+      '@medusajs/medusa': ^2.13.5
+      '@medusajs/test-utils': ^2.13.5
+      '@medusajs/ui': ^4.1.5
+      '@mikro-orm/cli': 6.4.16
+      '@mikro-orm/core': 6.4.16
+      '@mikro-orm/knex': 6.4.16
+      '@mikro-orm/migrations': 6.4.16
+      '@mikro-orm/postgresql': 6.4.16
+      awilix: ^8.0.1
+      pg: ^8.13.0
 
   '@lottiefiles/dotlottie-react@0.17.13':
     resolution: {integrity: sha512-Ui8bqFlxqxLqB3G4bE9nsSw05lUn7eiZ24dSi/NVHFjTMAlb/JxdS8xWt1cdF2W1yJPNCeQuze6kkqNC5OMbJg==}
@@ -5665,8 +5691,14 @@ packages:
   '@types/express-serve-static-core@4.19.7':
     resolution: {integrity: sha512-FvPtiIf1LfhzsaIXhv/PHan/2FeQBbtBDtfX2QfvPxdUelMDEckK08SM6nqo1MIZY3RUlfA+HV8+hFUSio78qg==}
 
+  '@types/express-serve-static-core@5.1.1':
+    resolution: {integrity: sha512-v4zIMr/cX7/d2BpAEX3KNKL/JrT1s43s96lLvvdTmza1oEvDudCqK9aF/djc/SWgy8Yh0h30TZx5VpzqFCxk5A==}
+
   '@types/express@4.17.25':
     resolution: {integrity: sha512-dVd04UKsfpINUnK0yBoYHDF3xu7xVH4BuDotC/xGuycx4CgbP48X/KF/586bcObxT0HENHXEU8Nqtu6NR+eKhw==}
+
+  '@types/express@5.0.6':
+    resolution: {integrity: sha512-sKYVuV7Sv9fbPIt/442koC7+IIwK5olP1KWeD88e/idgoJqDm3JV/YUiPwkoKK92ylff2MGxSz1CSjsXelx0YA==}
 
   '@types/graceful-fs@4.1.9':
     resolution: {integrity: sha512-olP3sd1qOEe5dXTSaFvQG+02VdRXcdytWLAZsAq1PecU8uqQAhkrnbli7DagjtXKW/Bl7YJbUsa8MPcuc8LHEQ==}
@@ -5697,6 +5729,9 @@ packages:
 
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
+
+  '@types/multer@1.4.13':
+    resolution: {integrity: sha512-bhhdtPw7JqCiEfC9Jimx5LqX9BDIPJEh2q/fQ4bqbBPtyEZYr3cvF22NwG0DmPZNYA0CAf2CnqDB4KIGGpJcaw==}
 
   '@types/mute-stream@0.0.4':
     resolution: {integrity: sha512-CPM9nzrCPPJHQNA9keH9CVkVI+WR5kMa+7XEs5jcGQ0VoAGnLv242w8lIVgwAEfmE4oufJRaTc9PNLQl0ioAow==}
@@ -5744,6 +5779,9 @@ packages:
 
   '@types/serve-static@1.15.10':
     resolution: {integrity: sha512-tRs1dB+g8Itk72rlSI2ZrW6vZg0YrLI81iQSTkMmOqnqCaNr/8Ek4VwWcN5vZgCYWbg/JJSGBlUaYGAOP73qBw==}
+
+  '@types/serve-static@2.2.0':
+    resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
 
   '@types/shimmer@1.2.0':
     resolution: {integrity: sha512-UE7oxhQLLd9gub6JKIAhDq06T0F6FnztwMNRvYgjeQSBeMc1ZG/tA47EwfduvkuQS8apbkM/lpLpWsaCeYsXVg==}
@@ -12083,6 +12121,51 @@ snapshots:
 
   '@js-sdsl/ordered-map@4.4.2': {}
 
+  '@lambdacurry/medusa-plugins-sdk@0.0.5':
+    dependencies:
+      '@medusajs/js-sdk': 2.15.3
+      '@types/express': 5.0.6
+      '@types/multer': 1.4.13
+      form-data: 4.0.4
+
+  '@lambdacurry/medusa-product-reviews@1.4.0(@medusajs/admin-sdk@2.15.3)(@medusajs/cli@2.15.3(@types/node@20.0.0))(@medusajs/framework@2.15.3(@medusajs/cli@2.15.3(@types/node@20.0.0))(@types/node@20.0.0)(ioredis@5.8.2)(vite@5.2.11(@types/node@20.0.0)(lightningcss@1.30.2)(terser@5.44.0))(zod@4.2.0))(@medusajs/icons@2.15.3(react@19.1.1))(@medusajs/medusa@2.15.3)(@medusajs/test-utils@2.15.3)(@medusajs/ui@4.1.13(@types/react-dom@19.1.1(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.8.3))(@mikro-orm/cli@6.6.12(pg@8.20.0))(@mikro-orm/core@6.6.12)(@mikro-orm/knex@6.6.12(@mikro-orm/core@6.6.12)(pg@8.20.0))(@mikro-orm/migrations@6.6.12(@mikro-orm/core@6.6.12)(@types/node@20.0.0)(pg@8.20.0))(@mikro-orm/postgresql@6.6.12(@mikro-orm/core@6.6.12))(@types/node@20.0.0)(awilix@8.0.1)(express@4.21.2)(pg@8.20.0)(react-hook-form@7.49.1(react@19.1.1))':
+    dependencies:
+      '@hookform/resolvers': 3.4.2(react-hook-form@7.49.1(react@19.1.1))
+      '@lambdacurry/medusa-plugins-sdk': 0.0.5
+      '@medusajs/admin-sdk': 2.15.3
+      '@medusajs/cli': 2.15.3(@types/node@20.0.0)
+      '@medusajs/framework': 2.15.3(@medusajs/cli@2.15.3(@types/node@20.0.0))(@types/node@20.0.0)(ioredis@5.8.2)(vite@5.2.11(@types/node@20.0.0)(lightningcss@1.30.2)(terser@5.44.0))(zod@4.2.0)
+      '@medusajs/icons': 2.15.3(react@19.1.1)
+      '@medusajs/js-sdk': 2.15.3
+      '@medusajs/medusa': 2.15.3(@medusajs/admin-sdk@2.15.3)(@medusajs/cli@2.15.3(@types/node@20.0.0))(@medusajs/framework@2.15.3(@medusajs/cli@2.15.3(@types/node@20.0.0))(@types/node@20.0.0)(ioredis@5.8.2)(vite@5.2.11(@types/node@20.0.0)(lightningcss@1.30.2)(terser@5.44.0))(zod@4.2.0))(@medusajs/icons@2.15.3(react@19.1.1))(@medusajs/test-utils@2.15.3)(@medusajs/ui@4.1.13(@types/react-dom@19.1.1(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.8.3))(@swc/core@1.5.7(@swc/helpers@0.5.17))(@types/node@20.0.0)(@types/react-dom@19.1.1(@types/react@19.1.1))(@types/react@19.1.1)(awilix@8.0.1)(lightningcss@1.30.2)(posthog-node@5.11.2)(react-dom@19.1.1(react@19.1.1))(react-router-dom@6.30.3(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)(terser@5.44.0)(tsx@4.20.6)(typescript@5.8.3)(yalc@1.0.0-pre.53)
+      '@medusajs/test-utils': 2.15.3(@medusajs/core-flows@2.15.3(@medusajs/framework@2.15.3(@medusajs/cli@2.15.3(@types/node@20.0.0))(@types/node@20.0.0)(ioredis@5.8.2)(vite@5.2.11(@types/node@20.0.0)(lightningcss@1.30.2)(terser@5.44.0))(zod@4.2.0)))(@medusajs/framework@2.15.3(@medusajs/cli@2.15.3(@types/node@20.0.0))(@types/node@20.0.0)(ioredis@5.8.2)(vite@5.2.11(@types/node@20.0.0)(lightningcss@1.30.2)(terser@5.44.0))(zod@4.2.0))(@medusajs/medusa@2.15.3)
+      '@medusajs/ui': 4.1.13(@types/react-dom@19.1.1(@types/react@19.1.1))(@types/react@19.1.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.8.3)
+      '@medusajs/workflows-sdk': 2.15.3(@types/node@20.0.0)(express@4.21.2)
+      '@mikro-orm/cli': 6.6.12(pg@8.20.0)
+      '@mikro-orm/core': 6.6.12
+      '@mikro-orm/knex': 6.6.12(@mikro-orm/core@6.6.12)(pg@8.20.0)
+      '@mikro-orm/migrations': 6.6.12(@mikro-orm/core@6.6.12)(@types/node@20.0.0)(pg@8.20.0)
+      '@mikro-orm/postgresql': 6.6.12(@mikro-orm/core@6.6.12)
+      awilix: 8.0.1
+      luxon: 3.7.2
+      pg: 8.20.0
+      zod: 3.25.76
+    transitivePeerDependencies:
+      - '@types/node'
+      - better-sqlite3
+      - encoding
+      - express
+      - libsql
+      - mariadb
+      - mysql
+      - mysql2
+      - pg-native
+      - pg-query-stream
+      - react-hook-form
+      - sqlite3
+      - supports-color
+      - tedious
+
   '@lottiefiles/dotlottie-react@0.17.13(react@19.1.1)':
     dependencies:
       '@lottiefiles/dotlottie-web': 0.61.0
@@ -17026,12 +17109,25 @@ snapshots:
       '@types/range-parser': 1.2.7
       '@types/send': 1.2.1
 
+  '@types/express-serve-static-core@5.1.1':
+    dependencies:
+      '@types/node': 20.0.0
+      '@types/qs': 6.14.0
+      '@types/range-parser': 1.2.7
+      '@types/send': 1.2.1
+
   '@types/express@4.17.25':
     dependencies:
       '@types/body-parser': 1.19.6
       '@types/express-serve-static-core': 4.19.7
       '@types/qs': 6.14.0
       '@types/serve-static': 1.15.10
+
+  '@types/express@5.0.6':
+    dependencies:
+      '@types/body-parser': 1.19.6
+      '@types/express-serve-static-core': 5.1.1
+      '@types/serve-static': 2.2.0
 
   '@types/graceful-fs@4.1.9':
     dependencies:
@@ -17063,6 +17159,10 @@ snapshots:
   '@types/lodash@4.17.20': {}
 
   '@types/mime@1.3.5': {}
+
+  '@types/multer@1.4.13':
+    dependencies:
+      '@types/express': 5.0.6
 
   '@types/mute-stream@0.0.4':
     dependencies:
@@ -17118,6 +17218,11 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/node': 20.0.0
       '@types/send': 0.17.6
+
+  '@types/serve-static@2.2.0':
+    dependencies:
+      '@types/http-errors': 2.0.5
+      '@types/node': 20.0.0
 
   '@types/shimmer@1.2.0': {}
 
