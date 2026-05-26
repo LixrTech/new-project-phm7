@@ -127,14 +127,14 @@ const ProductCard = ({ product, variant, selectedColor }: ProductCardProps) => {
         )}
       </div>
 
-      <div className="flex flex-col text-center mt-4 gap-2 px-2">
-        <h3 className="text-neutral-900 font-normal text-sm">{product.title}</h3>
+      <div className="flex flex-col text-center mt-3 md:mt-4 gap-1.5 md:gap-2 px-1 md:px-2">
+        <h3 className="text-neutral-900 font-normal text-xs md:text-sm">{product.title}</h3>
         <ProductPrice
           product={product}
           variant={product.variants?.[0]}
-          className="text-neutral-600 font-normal text-sm"
+          className="text-neutral-600 font-normal text-xs md:text-sm"
         />
-        <p className="text-xs text-neutral-500 line-clamp-2">
+        <p className="text-[10px] md:text-xs text-neutral-500 line-clamp-2 hidden sm:block">
           {(product as any).subtitle || "A captivating blend of rare essences"}
         </p>
       </div>

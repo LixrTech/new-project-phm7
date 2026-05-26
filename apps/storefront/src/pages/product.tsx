@@ -125,7 +125,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <div className="content-container pt-24 pb-12">
+      <div className="content-container pt-20 md:pt-24 pb-12 px-4 md:px-6">
         <Breadcrumbs 
           items={[
             { label: "Shop", href: "/$countryCode/store" },
@@ -133,7 +133,7 @@ const ProductDetails = () => {
           ]}
         />
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mt-6 md:mt-8">
           {/* Left: Image gallery with zoom */}
           <div>
             <ImageGalleryEnhanced images={displayImages} />
@@ -141,9 +141,9 @@ const ProductDetails = () => {
 
           {/* Right: Product info + variant selection */}
           <div className="flex flex-col">
-            <div className="sticky top-32 self-start w-full">
+            <div className="lg:sticky lg:top-32 self-start w-full">
               {/* Product name */}
-              <h1 className="text-3xl md:text-4xl font-display text-neutral-900 mb-4" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-display text-neutral-900 mb-4" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
                 {product.title}
               </h1>
 
@@ -159,8 +159,8 @@ const ProductDetails = () => {
 
               {/* Description below the actions */}
               {product.description && (
-                <div className="mb-8 pb-8 border-b border-neutral-200">
-                  <p className="text-neutral-700 leading-relaxed text-base">
+                <div className="mb-6 md:mb-8 pb-6 md:pb-8 border-b border-neutral-200">
+                  <p className="text-neutral-700 leading-relaxed text-sm md:text-base">
                     {product.description}
                   </p>
                 </div>
@@ -172,7 +172,7 @@ const ProductDetails = () => {
               {/* Share Product */}
               <button
                 onClick={handleShare}
-                className="mt-6 flex items-center gap-2 text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
+                className="mt-6 flex items-center gap-2 text-xs md:text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors"
               >
                 <Share className="w-4 h-4" />
                 {copied ? "Link copied!" : "Share Product"}
@@ -182,16 +182,16 @@ const ProductDetails = () => {
         </div>
 
         {/* Free Shipping & Returns Info Box */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          <div className="bg-sand-50 p-8 border border-sand-200">
-            <h3 className="text-lg font-display text-neutral-900 mb-3" style={{ fontWeight: 400 }}>Free Shipping</h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
+        <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-4xl mx-auto">
+          <div className="bg-sand-50 p-6 md:p-8 border border-sand-200">
+            <h3 className="text-base md:text-lg font-display text-neutral-900 mb-2 md:mb-3" style={{ fontWeight: 400 }}>Free Shipping</h3>
+            <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">
               Enjoy complimentary standard shipping on all orders. Your fragrances will be carefully packaged and delivered to your doorstep.
             </p>
           </div>
-          <div className="bg-sand-50 p-8 border border-sand-200">
-            <h3 className="text-lg font-display text-neutral-900 mb-3" style={{ fontWeight: 400 }}>Hassle-Free Returns</h3>
-            <p className="text-sm text-neutral-600 leading-relaxed">
+          <div className="bg-sand-50 p-6 md:p-8 border border-sand-200">
+            <h3 className="text-base md:text-lg font-display text-neutral-900 mb-2 md:mb-3" style={{ fontWeight: 400 }}>Hassle-Free Returns</h3>
+            <p className="text-xs md:text-sm text-neutral-600 leading-relaxed">
               Not completely satisfied? Return your items within 30 days for a full refund. Free return shipping included.
             </p>
           </div>

@@ -243,7 +243,7 @@ const Store = () => {
   }, [variantItems, selectedFilters, sortBy, priceOptions, bestSellingIds])
 
   return (
-    <div className="content-container pt-24 pb-12">
+    <div className="content-container pt-20 md:pt-24 pb-12 px-4 md:px-6">
       <Breadcrumbs 
         items={[
           { label: "Shop" }
@@ -251,11 +251,11 @@ const Store = () => {
       />
       
       {/* Page Header */}
-      <div className="mb-12 text-center mt-8">
-        <h1 className="text-4xl font-display text-neutral-900 mb-4" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
+      <div className="mb-8 md:mb-12 text-center mt-6 md:mt-8">
+        <h1 className="text-3xl md:text-4xl font-display text-neutral-900 mb-3 md:mb-4" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
           New Arrivals
         </h1>
-        <p className="text-neutral-600 max-w-2xl mx-auto text-sm">
+        <p className="text-neutral-600 max-w-2xl mx-auto text-xs md:text-sm">
           Explore our latest fragrances, each one a masterpiece of perfumery
         </p>
       </div>
@@ -273,12 +273,12 @@ const Store = () => {
 
       {/* Products */}
       {isFetching && filteredAndSortedItems.length === 0 ? (
-        <div className="text-neutral-600 py-12 text-center">Loading...</div>
+        <div className="text-neutral-600 py-12 text-center text-sm">Loading...</div>
       ) : filteredAndSortedItems.length === 0 ? (
-        <div className="text-neutral-600 py-12 text-center">No products found</div>
+        <div className="text-neutral-600 py-12 text-center text-sm">No products found</div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 md:gap-10 py-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 lg:gap-10 py-6 md:py-8">
             {filteredAndSortedItems.map((item, index) => (
               <ProductCard 
                 key={`${item.product.id}-${item.variant.id}-${index}`}
