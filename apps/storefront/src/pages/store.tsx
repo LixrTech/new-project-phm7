@@ -39,7 +39,7 @@ const Store = () => {
       region_id: region.id,
       query_params: {
         limit: 12,
-        fields: "id, *variants, *variants.options, *variants.options.option, *variants.calculated_price, *variants.inventory_items.*, *variants.inventory_items.inventory, *images",
+        fields: "id,*variants,*variants.id,*variants.options,*variants.options.option,*variants.calculated_price,*variants.inventory_items.*,*variants.inventory_items.inventory,*images",
       },
     })
 

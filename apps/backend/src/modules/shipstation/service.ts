@@ -101,14 +101,21 @@ class ShipStationProviderService extends AbstractFulfillmentProviderService {
         "shipping_address is required to calculate shipping rate"
       )
     }
+
+    if (!to_address.postal_code || !to_address.phone) {
+      throw new MedusaError(
+        MedusaError.Types.INVALID_DATA,
+        "postal_code and phone are required in shipping address to calculate shipping rate"
+      )
+    }
     
     const ship_to: ShipStationAddress = {
       name: `${to_address.first_name} ${to_address.last_name}`,
-      phone: to_address.phone || "",
+      phone: to_address.phone,
       address_line1: to_address.address_1 || "",
       city_locality: to_address.city || "",
       state_province: to_address.province || "",
-      postal_code: to_address.postal_code || "",
+      postal_code: to_address.postal_code,
       country_code: to_address.country_code || "",
       address_residential_indicator: "unknown",
     }
