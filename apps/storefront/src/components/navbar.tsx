@@ -1,6 +1,7 @@
 import { AccountDropdown } from "@/components/account-dropdown"
 import { CartDropdown } from "@/components/cart"
 import { PredictiveSearch } from "@/components/search/predictive-search"
+import { ShopDropdown } from "@/components/shop-dropdown"
 import {
   Drawer,
   DrawerClose,
@@ -12,7 +13,6 @@ import {
 import { useCategories } from "@/lib/hooks/use-categories"
 import { useCollections } from "@/lib/hooks/use-collections"
 import { getCountryCodeFromPath } from "@/lib/utils/region"
-import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { Link, useLocation } from "@tanstack/react-router"
 import { EllipsisHorizontal } from "@medusajs/icons"
 import { useState, useEffect } from "react"
@@ -62,15 +62,9 @@ export const Navbar = () => {
       >
         <header className="relative h-16 mx-auto border-b border-neutral-200">
           <nav className="content-container flex items-center justify-between w-full h-full relative">
-            {/* Left: SHOP Link */}
+            {/* Left: SHOP Dropdown */}
             <div className="flex items-center gap-x-8 h-full">
-              <Link
-                to="/$countryCode/store"
-                params={{ countryCode: countryCode || "us" }}
-                className="text-xs uppercase tracking-wider hover:text-neutral-500 transition-colors font-medium"
-              >
-                SHOP
-              </Link>
+              <ShopDropdown />
             </div>
             
             {/* Center: Logo */}

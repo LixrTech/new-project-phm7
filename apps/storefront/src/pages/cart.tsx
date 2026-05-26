@@ -5,6 +5,7 @@ import {
   CartPromo,
 } from "@/components/cart"
 import { Button } from "@/components/ui/button"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { Loading } from "@/components/ui/loading"
 import { useCart, useCreateCart } from "@/lib/hooks/use-cart"
 import { useProducts } from "@/lib/hooks/use-products"
@@ -71,18 +72,24 @@ const Cart = () => {
   }
 
   return (
-    <div className="content-container pt-32 pb-12">
+    <div className="content-container pt-24 pb-12">
+      <Breadcrumbs 
+        items={[
+          { label: "Cart" }
+        ]}
+      />
+      
       {cartLoading ? (
         <Loading />
       ) : cartItems.length === 0 ? (
         <CartEmpty />
       ) : (
         <>
-          <div className="flex flex-col lg:flex-row gap-12">
+          <div className="flex flex-col lg:flex-row gap-12 mt-8">
             {/* Left: Cart Items */}
             <div className="flex-1">
               <div className="flex items-center justify-between mb-8">
-                <h1 className="text-3xl font-display font-semibold text-neutral-900 tracking-tight">
+                <h1 className="text-3xl font-display text-neutral-900" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
                   Shopping Cart
                 </h1>
                 {cartItems.length > 0 && (

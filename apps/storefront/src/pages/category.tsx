@@ -1,6 +1,7 @@
 import ProductCard from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { FilterBar } from "@/components/filters/filter-bar"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { useProducts } from "@/lib/hooks/use-products"
 import { useLoaderData } from "@tanstack/react-router"
 import { useState, useMemo } from "react"
@@ -268,9 +269,16 @@ const Category = () => {
   }, [variantItems, selectedFilters, sortBy, priceOptions, bestSellingIds])
 
   return (
-    <div className="content-container pt-32 pb-12">
+    <div className="content-container pt-24 pb-12">
+      <Breadcrumbs 
+        items={[
+          { label: "Shop", href: "/$countryCode/store" },
+          { label: category?.name || "" }
+        ]}
+      />
+      
       {/* Page Header */}
-      <div className="mb-8">
+      <div className="mb-8 mt-6">
         <h1 className="text-4xl font-display font-semibold text-neutral-900 tracking-tight">
           {category?.name || "Category"}
         </h1>

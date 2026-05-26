@@ -1,6 +1,7 @@
 import ProductCard from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { FilterBar } from "@/components/filters/filter-bar"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { useProducts } from "@/lib/hooks/use-products"
 import { useLoaderData } from "@tanstack/react-router"
 import { useState, useMemo } from "react"
@@ -242,13 +243,19 @@ const Store = () => {
   }, [variantItems, selectedFilters, sortBy, priceOptions, bestSellingIds])
 
   return (
-    <div className="content-container pt-32 pb-12">
+    <div className="content-container pt-24 pb-12">
+      <Breadcrumbs 
+        items={[
+          { label: "Shop" }
+        ]}
+      />
+      
       {/* Page Header */}
-      <div className="mb-12 text-center">
-        <h1 className="text-5xl font-display text-neutral-900 mb-4">
+      <div className="mb-12 text-center mt-8">
+        <h1 className="text-4xl font-display text-neutral-900 mb-4" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
           New Arrivals
         </h1>
-        <p className="text-neutral-600 max-w-2xl mx-auto">
+        <p className="text-neutral-600 max-w-2xl mx-auto text-sm">
           Explore our latest fragrances, each one a masterpiece of perfumery
         </p>
       </div>

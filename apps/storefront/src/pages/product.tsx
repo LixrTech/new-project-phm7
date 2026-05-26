@@ -2,6 +2,7 @@ import ProductActions from "@/components/product-actions"
 import { ImageGalleryEnhanced } from "@/components/ui/image-gallery-enhanced"
 import { ProductAccordions } from "@/components/product/product-accordions"
 import { RelatedProducts } from "@/components/product/related-products"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { useLoaderData, useLocation } from "@tanstack/react-router"
 import { useProducts } from "@/lib/hooks/use-products"
 import { getCountryCodeFromPath } from "@/lib/utils/region"
@@ -124,8 +125,15 @@ const ProductDetails = () => {
 
   return (
     <>
-      <div className="content-container pt-32 pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+      <div className="content-container pt-24 pb-12">
+        <Breadcrumbs 
+          items={[
+            { label: "Shop", href: "/$countryCode/store" },
+            { label: product.title || "" }
+          ]}
+        />
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mt-8">
           {/* Left: Image gallery with zoom */}
           <div>
             <ImageGalleryEnhanced images={displayImages} />
@@ -134,8 +142,8 @@ const ProductDetails = () => {
           {/* Right: Product info + variant selection */}
           <div className="flex flex-col">
             <div className="sticky top-32 self-start w-full">
-              {/* Product name - bigger at the top */}
-              <h1 className="text-4xl md:text-5xl font-display font-semibold text-neutral-900 mb-6 tracking-tight">
+              {/* Product name */}
+              <h1 className="text-3xl md:text-4xl font-display text-neutral-900 mb-4" style={{ fontWeight: 400, letterSpacing: '0.02em' }}>
                 {product.title}
               </h1>
 
@@ -175,16 +183,16 @@ const ProductDetails = () => {
 
         {/* Free Shipping & Returns Info Box */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          <div className="bg-neutral-50 p-8 rounded-lg">
-            <h3 className="text-lg font-semibold text-neutral-900 mb-3">Free Shipping</h3>
-            <p className="text-sm text-neutral-700 leading-relaxed">
-              Enjoy free standard shipping on all orders. Your items will be carefully packaged and delivered to your doorstep at no extra cost.
+          <div className="bg-sand-50 p-8 border border-sand-200">
+            <h3 className="text-lg font-display text-neutral-900 mb-3" style={{ fontWeight: 400 }}>Free Shipping</h3>
+            <p className="text-sm text-neutral-600 leading-relaxed">
+              Enjoy complimentary standard shipping on all orders. Your fragrances will be carefully packaged and delivered to your doorstep.
             </p>
           </div>
-          <div className="bg-neutral-50 p-8 rounded-lg">
-            <h3 className="text-lg font-semibold text-neutral-900 mb-3">Hassle-Free Returns</h3>
-            <p className="text-sm text-neutral-700 leading-relaxed">
-              Not completely satisfied? Return your unworn items within 30 days for a full refund. Free return shipping included.
+          <div className="bg-sand-50 p-8 border border-sand-200">
+            <h3 className="text-lg font-display text-neutral-900 mb-3" style={{ fontWeight: 400 }}>Hassle-Free Returns</h3>
+            <p className="text-sm text-neutral-600 leading-relaxed">
+              Not completely satisfied? Return your items within 30 days for a full refund. Free return shipping included.
             </p>
           </div>
         </div>

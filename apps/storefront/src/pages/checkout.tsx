@@ -1,5 +1,6 @@
 import CheckoutProgress from "@/components/checkout-progress"
 import { CartEmpty } from "@/components/cart"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { Loading } from "@/components/ui/loading"
 import { useCart } from "@/lib/hooks/use-cart"
 import { type CheckoutStep, CheckoutStepKey } from "@/lib/types/global"
@@ -118,7 +119,14 @@ const Checkout = () => {
   }
 
   return (
-    <div className="content-container pt-40 pb-8 flex flex-col gap-8">
+    <div className="content-container pt-24 pb-8 flex flex-col gap-8">
+      <Breadcrumbs 
+        items={[
+          { label: "Cart", href: "/$countryCode/cart" },
+          { label: "Checkout" }
+        ]}
+      />
+      
       {/* Progress Steps */}
       <CheckoutProgress
         steps={steps}
@@ -127,15 +135,15 @@ const Checkout = () => {
       />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-24">
         <div className="flex flex-col gap-1 lg:col-span-2">
-          <h2 className="text-zinc-900 text-xl">
+          <h2 className="text-neutral-900 text-xl font-display" style={{ fontWeight: 400 }}>
             {steps[currentStepIndex].title}
           </h2>
-          <p className="text-base font-medium text-zinc-600">
+          <p className="text-sm text-neutral-600">
             {steps[currentStepIndex].description}
           </p>
         </div>
         <div className="flex flex-col gap-1">
-          <h2 className="text-zinc-900 text-xl">Order Summary</h2>
+          <h2 className="text-neutral-900 text-xl font-display" style={{ fontWeight: 400 }}>Order Summary</h2>
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-24">
