@@ -27,12 +27,27 @@ const Checkout = () => {
   const navigate = useNavigate()
 
   const steps: CheckoutStep[] = useMemo(() => {
+    const hasCompleteShippingAddress = !!(
+      cart?.shipping_address?.postal_code && 
+      cart?.shipping_address?.phone &&
+      cart?.shipping_address?.address_1 &&
+      cart?.shipping_address?.city &&
+      cart?.shipping_address?.country_code
+    )
+    const hasCompleteBillingAddress = !!(
+      cart?.billing_address &&
+      cart?.billing_address?.postal_code &&
+      cart?.billing_address?.address_1 &&
+      cart?.billing_address?.city &&
+      cart?.billing_address?.country_code
+    )
+    
     return [
       {
         key: CheckoutStepKey.ADDRESSES,
         title: "Addresses",
         description: "Enter your shipping and billing addresses.",
-        completed: !!(cart?.shipping_address && cart?.billing_address),
+        completed: hasCompleteShippingAddress && hasCompleteBillingAddress,
       },
       {
         key: CheckoutStepKey.DELIVERY,
