@@ -54,7 +54,23 @@ export function useStorefrontSettings() {
     refetchOnMount: true,
   })
 
-  const settings = data?.settings ? { ...DEFAULT_SETTINGS, ...data.settings } : DEFAULT_SETTINGS
+  // Deep merge: merge each top-level key individually to preserve nested updates
+  const settings = data?.settings
+    ? Object.keys(DEFAULT_SETTINGS).reduce(
+        (acc, key) => {
+          const defaultValue = DEFAULT_SETTINGS[key as keyof typeof DEFAULT_SETTINGS]
+          const apiValue = data.settings[key as keyof typeof data.settings]
+          
+          // Deep merge objects, otherwise use API value or fallback to default
+          acc[key as keyof typeof DEFAULT_SETTINGS] = apiValue
+            ? { ...defaultValue, ...apiValue }
+            : defaultValue
+          
+          return acc
+        },
+        {} as typeof DEFAULT_SETTINGS
+      )
+    : DEFAULT_SETTINGS
 
   return { settings, isLoading }
 }

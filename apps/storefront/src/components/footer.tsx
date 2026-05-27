@@ -72,7 +72,7 @@ const Footer = () => {
             <div className="flex flex-col gap-4 w-full md:w-auto">
               {/* Copyright */}
               <span className="text-xs text-neutral-400">
-                © {new Date().getFullYear()} Essence. All rights reserved.
+                © {new Date().getFullYear()} Elaf. All rights reserved.
               </span>
               
               {/* Region/Country Selector */}
