@@ -6,11 +6,13 @@ const DEFAULT_SETTINGS = {
     title: "The Art of Fragrance",
     subtitle: "Discover our curated collection of luxury perfumes, crafted with the finest ingredients.",
     buttonText: "Explore Collection",
+    productId: "",
   },
   crafted: {
     title: "Crafted with Intention",
     content: "Each fragrance in our collection tells a story, blending rare essences and timeless craftsmanship. From the first note to the lingering finish, our perfumes are designed to evoke emotion and leave a lasting impression.",
     buttonText: "View All",
+    productId: "",
   },
   newArrivals: {
     title: "New Arrivals",
@@ -55,21 +57,15 @@ export function useStorefrontSettings() {
   })
 
   // Deep merge: merge each top-level key individually to preserve nested updates
-  const settings = data?.settings
-    ? Object.keys(DEFAULT_SETTINGS).reduce(
-        (acc, key) => {
-          const defaultValue = DEFAULT_SETTINGS[key as keyof typeof DEFAULT_SETTINGS]
-          const apiValue = data.settings[key as keyof typeof data.settings]
-          
-          // Deep merge objects, otherwise use API value or fallback to default
-          acc[key as keyof typeof DEFAULT_SETTINGS] = apiValue
-            ? { ...defaultValue, ...apiValue }
-            : defaultValue
-          
-          return acc
-        },
-        {} as typeof DEFAULT_SETTINGS
-      )
+  const settings: typeof DEFAULT_SETTINGS = data?.settings
+    ? {
+        hero: { ...DEFAULT_SETTINGS.hero, ...data.settings.hero },
+        crafted: { ...DEFAULT_SETTINGS.crafted, ...data.settings.crafted },
+        newArrivals: { ...DEFAULT_SETTINGS.newArrivals, ...data.settings.newArrivals },
+        philosophy: { ...DEFAULT_SETTINGS.philosophy, ...data.settings.philosophy },
+        footer: { ...DEFAULT_SETTINGS.footer, ...data.settings.footer },
+        promoBanner: { ...DEFAULT_SETTINGS.promoBanner, ...data.settings.promoBanner },
+      }
     : DEFAULT_SETTINGS
 
   return { settings, isLoading }

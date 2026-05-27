@@ -21,6 +21,27 @@ const Home = () => {
 
   const products = productsData?.pages?.[0]?.products || []
 
+  // Fetch specific products for hero and crafted sections if IDs are set
+  const { data: heroProductData } = useProducts({
+    region_id: settings.hero.productId ? region?.id : undefined,
+    query_params: { 
+      id: settings.hero.productId ? [settings.hero.productId] : undefined,
+      fields: "id,title,handle,thumbnail,*images,*variants,*variants.calculated_price",
+    },
+  })
+
+  const { data: craftedProductData } = useProducts({
+    region_id: settings.crafted.productId ? region?.id : undefined,
+    query_params: { 
+      id: settings.crafted.productId ? [settings.crafted.productId] : undefined,
+      fields: "id,title,handle,thumbnail,*images,*variants,*variants.calculated_price",
+    },
+  })
+
+  // Use selected products or fallback to products from list
+  const heroProduct = heroProductData?.pages?.[0]?.products?.[0] || products[0]
+  const craftedProduct = craftedProductData?.pages?.[0]?.products?.[0] || products[1]
+
   return (
     <div className="min-h-screen">
       {/* Hero Section - Clean Beige with Product */}
@@ -58,9 +79,9 @@ const Home = () => {
           {/* Right: Product Image */}
           <div className="flex justify-center lg:justify-end order-1 lg:order-2">
             <div className="relative w-full max-w-[240px] sm:max-w-[320px] lg:max-w-[400px] bg-white rounded-sm shadow-lg p-6 sm:p-10 lg:p-12">
-              {products[0]?.thumbnail && (
+              {heroProduct?.thumbnail && (
                 <img
-                  src={products[0].thumbnail}
+                  src={heroProduct.thumbnail}
                   alt="Featured Fragrance"
                   className="w-full h-auto object-contain"
                 />
@@ -76,9 +97,9 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
             {/* Left: Image */}
             <div className="relative w-full aspect-square bg-neutral-100 overflow-hidden">
-              {products[1]?.thumbnail && (
+              {craftedProduct?.thumbnail && (
                 <img
-                  src={products[1].thumbnail}
+                  src={craftedProduct.thumbnail}
                   alt="Craftsmanship"
                   className="w-full h-full object-cover"
                 />

@@ -1,6 +1,6 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { BuildingStorefront } from "@medusajs/icons"
-import { Container, Heading, Button, Input, Label, Textarea, Switch, toast } from "@medusajs/ui"
+import { Container, Heading, Button, Input, Label, Textarea, Switch, toast, Select } from "@medusajs/ui"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { useState, useEffect } from "react"
 import { sdk } from "../../lib/client"
@@ -10,11 +10,13 @@ const DEFAULT_SETTINGS = {
     title: "The Art of Fragrance",
     subtitle: "Discover our curated collection of luxury perfumes, crafted with the finest ingredients.",
     buttonText: "Explore Collection",
+    productId: "",
   },
   crafted: {
     title: "Crafted with Intention",
     content: "Each fragrance in our collection tells a story, blending rare essences and timeless craftsmanship. From the first note to the lingering finish, our perfumes are designed to evoke emotion and leave a lasting impression.",
     buttonText: "View All",
+    productId: "",
   },
   newArrivals: {
     title: "New Arrivals",
@@ -54,6 +56,14 @@ const StorefrontSettingsPage = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["storefront-settings"],
     queryFn: () => sdk.client.fetch("/admin/storefront-settings"),
+  })
+
+  const { data: productsData } = useQuery({
+    queryKey: ["products-list"],
+    queryFn: async () => {
+      const response = await sdk.admin.product.list({ limit: 100 })
+      return response.products
+    },
   })
 
   useEffect(() => {
@@ -190,6 +200,27 @@ const StorefrontSettingsPage = () => {
                 onChange={(e) => updateField("hero", "buttonText", e.target.value)}
               />
             </div>
+            <div className="flex flex-col gap-y-2">
+              <Label>Featured Product</Label>
+              <Select
+                value={settings.hero.productId || ""}
+                onValueChange={(value) => updateField("hero", "productId", value)}
+              >
+                <Select.Trigger>
+                  <Select.Value placeholder="Select a product" />
+                </Select.Trigger>
+                <Select.Content>
+                  {productsData?.map((product: any) => (
+                    <Select.Item key={product.id} value={product.id}>
+                      {product.title}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select>
+              <p className="text-xs text-neutral-500">
+                Leave empty to use the first product
+              </p>
+            </div>
           </div>
         </div>
       </Container>
@@ -222,6 +253,27 @@ const StorefrontSettingsPage = () => {
                 value={settings.crafted.buttonText}
                 onChange={(e) => updateField("crafted", "buttonText", e.target.value)}
               />
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <Label>Featured Product</Label>
+              <Select
+                value={settings.crafted.productId || ""}
+                onValueChange={(value) => updateField("crafted", "productId", value)}
+              >
+                <Select.Trigger>
+                  <Select.Value placeholder="Select a product" />
+                </Select.Trigger>
+                <Select.Content>
+                  {productsData?.map((product: any) => (
+                    <Select.Item key={product.id} value={product.id}>
+                      {product.title}
+                    </Select.Item>
+                  ))}
+                </Select.Content>
+              </Select>
+              <p className="text-xs text-neutral-500">
+                Leave empty to use the second product
+              </p>
             </div>
           </div>
         </div>

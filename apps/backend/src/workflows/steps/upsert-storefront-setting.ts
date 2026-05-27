@@ -9,14 +9,19 @@ type Input = {
   settings: { key: string; value: any }[]
 }
 
+type PreviousValue = {
+  key: string
+  previousValue: Record<string, unknown> | undefined
+}
+
 export const upsertStorefrontSettingStep = createStep(
   "upsert-storefront-setting",
   async (input: Input, { container }) => {
     const storefrontSettingsService: StorefrontSettingsModuleService =
       container.resolve(STOREFRONT_SETTINGS_MODULE)
 
-    const results = []
-    const previousValues = []
+    const results: any[] = []
+    const previousValues: PreviousValue[] = []
 
     for (const setting of input.settings) {
       const [existing] = await storefrontSettingsService.listStorefrontSettings({
