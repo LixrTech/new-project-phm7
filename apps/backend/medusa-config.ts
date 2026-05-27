@@ -40,6 +40,7 @@ module.exports = defineConfig({
     },
   },
   modules: [
+    { resolve: "./src/modules/storefront-settings" },
     {
       resolve: "@medusajs/medusa/file",
       options: {

@@ -1,6 +1,7 @@
 import { useLocation, useLoaderData, Link } from "@tanstack/react-router"
 import { getCountryCodeFromPath } from "@/lib/utils/region"
 import { useProducts } from "@/lib/hooks/use-products"
+import { useStorefrontSettings } from "@/lib/hooks/use-storefront-settings"
 import ProductCard from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 
@@ -8,6 +9,7 @@ const Home = () => {
   const location = useLocation()
   const { region } = useLoaderData({ from: "/$countryCode/" })
   const countryCode = getCountryCodeFromPath(location.pathname) || "us"
+  const { settings } = useStorefrontSettings()
 
   const { data: productsData } = useProducts({
     region_id: region?.id,
@@ -33,10 +35,10 @@ const Home = () => {
               className="text-3xl sm:text-5xl lg:text-6xl text-white leading-tight"
               style={{ fontFamily: 'Georgia, serif', fontWeight: 400, letterSpacing: '0.02em' }}
             >
-              The Art of<br />Fragrance
+              {settings.hero.title}
             </h1>
             <p className="text-sm sm:text-base text-white/85 max-w-md leading-relaxed mx-auto lg:mx-0" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}>
-              Discover our curated collection of luxury perfumes,<br className="hidden sm:block" /> crafted with the finest ingredients.
+              {settings.hero.subtitle}
             </p>
             <div className="flex justify-center lg:justify-start mt-2 sm:mt-4">
               <Link
@@ -47,7 +49,7 @@ const Home = () => {
                   className="bg-white text-neutral-900 hover:bg-neutral-50 px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal shadow-sm"
                   style={{ letterSpacing: '0.15em' }}
                 >
-                  Explore Collection
+                  {settings.hero.buttonText}
                 </Button>
               </Link>
             </div>
@@ -89,14 +91,11 @@ const Home = () => {
                 className="text-2xl sm:text-3xl lg:text-4xl text-neutral-900 leading-tight"
                 style={{ fontFamily: 'Georgia, serif', fontWeight: 400 }}
               >
-                Crafted with Intention
+                {settings.crafted.title}
               </h2>
               <div className="space-y-4 text-sm sm:text-base text-neutral-600 leading-relaxed" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}>
                 <p>
-                  Each fragrance in our collection tells a story, blending rare essences and timeless craftsmanship.
-                </p>
-                <p>
-                  From the first note to the lingering finish, our perfumes are designed to evoke emotion and leave a lasting impression.
+                  {settings.crafted.content}
                 </p>
               </div>
               <div>
@@ -108,7 +107,7 @@ const Home = () => {
                     className="border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal transition-colors"
                     style={{ letterSpacing: '0.15em' }}
                   >
-                    View All
+                    {settings.crafted.buttonText}
                   </button>
                 </Link>
               </div>
@@ -125,10 +124,10 @@ const Home = () => {
               className="text-2xl sm:text-3xl lg:text-4xl text-neutral-900 mb-3"
               style={{ fontFamily: 'Georgia, serif', fontWeight: 400 }}
             >
-              New Arrivals
+              {settings.newArrivals.title}
             </h2>
             <p className="text-xs sm:text-sm text-neutral-500 max-w-2xl mx-auto" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}>
-              Explore our latest fragrances, each one a masterpiece of perfumery
+              {settings.newArrivals.subtitle}
             </p>
           </div>
 
@@ -154,10 +153,10 @@ const Home = () => {
             className="text-2xl sm:text-3xl lg:text-4xl text-white mb-5 sm:mb-7"
             style={{ fontFamily: 'Georgia, serif', fontWeight: 400 }}
           >
-            A Philosophy of Scent
+            {settings.philosophy.title}
           </h2>
           <p className="text-sm sm:text-base text-white/75 max-w-3xl mx-auto leading-relaxed mb-8 sm:mb-10" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}>
-            We believe fragrance is an intimate expression of self. Our perfumes are crafted to enhance your presence, to whisper rather than shout, to linger in memory long after you've left the room.
+            {settings.philosophy.content}
           </p>
           <Link
             to="/$countryCode/store"
@@ -167,7 +166,7 @@ const Home = () => {
               className="bg-white text-neutral-900 hover:bg-neutral-50 px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal shadow-sm transition-colors"
               style={{ letterSpacing: '0.15em' }}
             >
-              Discover Your Signature
+              {settings.philosophy.buttonText}
             </button>
           </Link>
         </div>

@@ -1,6 +1,7 @@
 import CountrySelect from "@/components/country-select"
 import { useCategories } from "@/lib/hooks/use-categories"
 import { useRegions } from "@/lib/hooks/use-regions"
+import { useStorefrontSettings } from "@/lib/hooks/use-storefront-settings"
 import { getCountryCodeFromPath } from "@/lib/utils/region"
 import { Link, useLocation } from "@tanstack/react-router"
 
@@ -8,6 +9,7 @@ const Footer = () => {
   const location = useLocation()
   const countryCode = getCountryCodeFromPath(location.pathname)
   const baseHref = countryCode ? `/${countryCode}` : ""
+  const { settings } = useStorefrontSettings()
 
   const { data: categories } = useCategories({
     fields: "name,handle",
@@ -39,57 +41,28 @@ const Footer = () => {
               ESSENCE
             </Link>
             <p className="text-neutral-300 max-w-sm text-sm leading-relaxed">
-              Crafting moments of beauty through the art of fragrance.
+              {settings.footer.brandTagline}
             </p>
           </div>
 
           {/* Collections Column */}
           <FooterColumn
             title="COLLECTIONS"
-            links={[
-              {
-                name: "All Fragrances",
-                url: `${baseHref}/store`,
-                isExternal: false,
-              },
-              {
-                name: "Oud",
-                url: `${baseHref}/collections/oud`,
-                isExternal: false,
-              },
-              {
-                name: "kinky + hardcore",
-                url: `${baseHref}/collections/kinky-hardcore`,
-                isExternal: false,
-              },
-              {
-                name: "Coming soon",
-                url: `${baseHref}/store`,
-                isExternal: false,
-              },
-            ]}
+            links={settings.footer.collectionsLinks.map((link: { label: string; url: string }) => ({
+              name: link.label,
+              url: link.url.startsWith("/") ? `${baseHref}${link.url}` : link.url,
+              isExternal: false,
+            }))}
           />
 
           {/* About Column */}
           <FooterColumn
             title="ABOUT"
-            links={[
-              {
-                name: "Our Story",
-                url: `${baseHref}/about`,
-                isExternal: false,
-              },
-              {
-                name: "Craftsmanship",
-                url: `${baseHref}/craftsmanship`,
-                isExternal: false,
-              },
-              {
-                name: "Contact",
-                url: `${baseHref}/contact`,
-                isExternal: false,
-              },
-            ]}
+            links={settings.footer.aboutLinks.map((link: { label: string; url: string }) => ({
+              name: link.label,
+              url: link.url.startsWith("/") ? `${baseHref}${link.url}` : link.url,
+              isExternal: false,
+            }))}
           />
         </div>
 
