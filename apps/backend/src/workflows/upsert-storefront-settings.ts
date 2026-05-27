@@ -1,6 +1,7 @@
 import {
   createWorkflow,
   WorkflowResponse,
+  transform,
   parallelize,
 } from "@medusajs/framework/workflows-sdk"
 import { upsertStorefrontSettingStep } from "./steps/upsert-storefront-setting"
@@ -12,8 +13,13 @@ type Input = {
 export const upsertStorefrontSettingsWorkflow = createWorkflow(
   "upsert-storefront-settings",
   function (input: Input) {
+    const settingsToUpsert = transform({ input }, ({ input }) => {
+      return input.settings
+    })
+
     const results = parallelize(
-      ...input.settings.map((setting) => upsertStorefrontSettingStep(setting))
+      settingsToUpsert,
+      (setting) => upsertStorefrontSettingStep(setting)
     )
 
     return new WorkflowResponse({ results })
