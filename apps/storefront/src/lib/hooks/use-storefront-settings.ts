@@ -50,7 +50,8 @@ export function useStorefrontSettings() {
       const response = await sdk.client.fetch("/store/storefront-settings")
       return response as { settings: typeof DEFAULT_SETTINGS }
     },
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
+    refetchOnMount: true,
   })
 
   const settings = data?.settings ? { ...DEFAULT_SETTINGS, ...data.settings } : DEFAULT_SETTINGS

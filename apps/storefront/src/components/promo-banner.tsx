@@ -1,9 +1,9 @@
 import { useStorefrontSettings } from "@/lib/hooks/use-storefront-settings"
 
 const PromoBanner = () => {
-  const { settings } = useStorefrontSettings()
+  const { settings, isLoading } = useStorefrontSettings()
 
-  if (!settings.promoBanner.enabled) {
+  if (isLoading || !settings?.promoBanner?.enabled) {
     return null
   }
 

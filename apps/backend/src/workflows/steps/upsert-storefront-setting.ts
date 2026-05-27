@@ -25,8 +25,7 @@ export const upsertStorefrontSettingStep = createStep(
 
       let result
       if (existing) {
-        result = await storefrontSettingsService.updateStorefrontSettings({
-          id: existing.id,
+        result = await storefrontSettingsService.updateStorefrontSettings(existing.id, {
           value: setting.value,
         })
       } else {
@@ -55,8 +54,7 @@ export const upsertStorefrontSettingStep = createStep(
 
       if (existing) {
         if (previousValue !== undefined) {
-          await storefrontSettingsService.updateStorefrontSettings({
-            id: existing.id,
+          await storefrontSettingsService.updateStorefrontSettings(existing.id, {
             value: previousValue,
           })
         } else {
