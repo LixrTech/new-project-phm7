@@ -6,8 +6,7 @@ import { STOREFRONT_SETTINGS_MODULE } from "../../modules/storefront-settings"
 import StorefrontSettingsModuleService from "../../modules/storefront-settings/service"
 
 type Input = {
-  key: string
-  value: any
+  settings: { key: string; value: any }[]
 }
 
 export const upsertStorefrontSettingStep = createStep(
@@ -16,24 +15,32 @@ export const upsertStorefrontSettingStep = createStep(
     const storefrontSettingsService: StorefrontSettingsModuleService =
       container.resolve(STOREFRONT_SETTINGS_MODULE)
 
-    const [existing] = await storefrontSettingsService.listStorefrontSettings({
-      key: input.key,
-    })
+    const results = []
+    const previousValues = []
 
-    let setting
-    if (existing) {
-      setting = await storefrontSettingsService.updateStorefrontSettings({
-        id: existing.id,
-        value: input.value,
+    for (const setting of input.settings) {
+      const [existing] = await storefrontSettingsService.listStorefrontSettings({
+        key: setting.key,
       })
-    } else {
-      setting = await storefrontSettingsService.createStorefrontSettings({
-        key: input.key,
-        value: input.value,
-      })
+
+      let result
+      if (existing) {
+        result = await storefrontSettingsService.updateStorefrontSettings({
+          id: existing.id,
+          value: setting.value,
+        })
+      } else {
+        result = await storefrontSettingsService.createStorefrontSettings({
+          key: setting.key,
+          value: setting.value,
+        })
+      }
+
+      results.push(result)
+      previousValues.push({ key: setting.key, previousValue: existing?.value })
     }
 
-    return new StepResponse(setting, { key: input.key, previousValue: existing?.value })
+    return new StepResponse(results, previousValues)
   },
   async (compensationData, { container }) => {
     if (!compensationData) return
@@ -41,18 +48,20 @@ export const upsertStorefrontSettingStep = createStep(
     const storefrontSettingsService: StorefrontSettingsModuleService =
       container.resolve(STOREFRONT_SETTINGS_MODULE)
 
-    const [existing] = await storefrontSettingsService.listStorefrontSettings({
-      key: compensationData.key,
-    })
+    for (const { key, previousValue } of compensationData) {
+      const [existing] = await storefrontSettingsService.listStorefrontSettings({
+        key,
+      })
 
-    if (existing) {
-      if (compensationData.previousValue !== undefined) {
-        await storefrontSettingsService.updateStorefrontSettings({
-          id: existing.id,
-          value: compensationData.previousValue,
-        })
-      } else {
-        await storefrontSettingsService.deleteStorefrontSettings(existing.id)
+      if (existing) {
+        if (previousValue !== undefined) {
+          await storefrontSettingsService.updateStorefrontSettings({
+            id: existing.id,
+            value: previousValue,
+          })
+        } else {
+          await storefrontSettingsService.deleteStorefrontSettings(existing.id)
+        }
       }
     }
   }
