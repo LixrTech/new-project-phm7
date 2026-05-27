@@ -176,9 +176,9 @@ const Cart = () => {
                 Complete Your Look
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                {crossSellProducts.slice(0, 4).map((product) => (
+                {crossSellProducts.slice(0, 4).map((product, index) => (
                   <a
-                    key={product.id}
+                    key={product.id || `product-${index}`}
                     href={`${baseHref}/products/${product.handle}`}
                     className="group"
                   >

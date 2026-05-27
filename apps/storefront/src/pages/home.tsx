@@ -153,9 +153,9 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {products.slice(0, 4).map((product) => (
+            {products.slice(0, 4).map((product, index) => (
               <ProductCard
-                key={product.id}
+                key={product.id || `product-${index}`}
                 product={product}
                 variant={product.variants?.[0]}
               />

@@ -95,12 +95,12 @@ export const PredictiveSearch = () => {
                       {products.length} Results
                     </p>
                     <div className="space-y-4">
-                      {products.map((product) => {
+                      {products.map((product, index) => {
                         const variant = product.variants?.[0]
                         const calculatedPrice = variant?.calculated_price
                         return (
                           <Link
-                            key={product.id}
+                            key={product.id || `product-${index}`}
                             to="/$countryCode/products/$handle"
                             params={{ countryCode: countryCode || "us", handle: product.handle || "" }}
                             onClick={handleClose}
@@ -188,12 +188,12 @@ export const PredictiveSearch = () => {
                     {products.length} Results
                   </p>
                   <div className="space-y-4">
-                    {products.map((product) => {
+                    {products.map((product, index) => {
                       const variant = product.variants?.[0]
                       const calculatedPrice = variant?.calculated_price
                       return (
                         <Link
-                          key={product.id}
+                          key={product.id || `product-${index}`}
                           to="/$countryCode/products/$handle"
                           params={{ countryCode: countryCode || "us", handle: product.handle || "" }}
                           onClick={handleClose}
