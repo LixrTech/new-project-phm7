@@ -32,12 +32,12 @@ export const RelatedProducts = ({
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {products.slice(0, 4).map((product) => {
+          {products.slice(0, 4).map((product, index) => {
             const variant = product.variants?.[0]
             const calculatedPrice = variant?.calculated_price
             return (
               <Link
-                key={product.id}
+                key={product.id || `product-${index}`}
                 to="/$countryCode/products/$handle"
                 params={{ countryCode: countryCode || "us", handle: product.handle || "" }}
                 className="group"

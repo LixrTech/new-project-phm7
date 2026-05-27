@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @config "../../tailwind.config.js";
 @import "./theme.css";
@@ -8,17 +7,19 @@
     @apply bg-white text-neutral-800 antialiased;
     text-rendering: optimizeLegibility;
     letter-spacing: normal;
-    font-family: var(--font-body);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-display);
+    font-family: Georgia, serif;
     letter-spacing: 0.02em;
     font-weight: 400;
   }
   
   body {
     @apply text-neutral-700;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 300;
   }
 }
 

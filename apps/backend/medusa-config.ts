@@ -40,6 +40,7 @@ module.exports = defineConfig({
     },
   },
   modules: [
+    { resolve: "./src/modules/storefront-settings" },
     {
       resolve: "@medusajs/medusa/file",
       options: {
@@ -71,6 +72,41 @@ module.exports = defineConfig({
                   endpoint: process.env.S3_ENDPOINT,
                   region: process.env.S3_REGION,
                 },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: process.env.STRIPE_API_KEY
+          ? [
+              {
+                resolve: "@medusajs/medusa/payment-stripe",
+                id: "stripe",
+                options: {
+                  apiKey: process.env.STRIPE_API_KEY,
+                  webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+                },
+              },
+            ]
+          : [],
+      },
+    },
+    {
+      resolve: "@medusajs/medusa/fulfillment",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/fulfillment-manual",
+            id: "manual",
+          },
+          {
+            resolve: "./src/modules/shipstation",
+            id: "shipstation",
+            options: {
+              api_key: process.env.SHIPSTATION_API_KEY,
+            },
           },
         ],
       },

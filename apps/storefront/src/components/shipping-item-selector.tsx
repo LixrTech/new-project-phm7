@@ -34,12 +34,23 @@ const ShippingItemSelector = ({
       return
     }
 
+    // Only calculate price if cart has required address fields with actual values
+    const postalCode = cart.shipping_address?.postal_code?.trim()
+    const phone = cart.shipping_address?.phone?.trim()
+    
+    if (!postalCode || !phone) {
+      return
+    }
+
     calculatePriceForShippingOption({
       option_id: shippingOption.id,
     }).then((option) => {
       setCalculatedPrice(option.amount)
+    }).catch((error) => {
+      // Silently handle calculation errors (e.g., incomplete address data)
+      console.error("Failed to calculate shipping price:", error)
     })
-  }, [shippingOption.price_type, shippingOption.id])
+  }, [shippingOption.price_type, shippingOption.id, cart.shipping_address?.postal_code, cart.shipping_address?.phone])
 
   return (
     <label

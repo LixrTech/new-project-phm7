@@ -13,44 +13,61 @@ interface ProductAccordionsProps {
 
 const defaultItems: AccordionItem[] = [
   {
-    id: "details",
-    title: "Product Details",
-    content: "High-quality athleisure essential crafted for all-day comfort and style.",
+    id: "notes",
+    title: "Fragrance Notes",
+    content: (
+      <div className="space-y-3">
+        <div>
+          <p className="font-medium text-neutral-900 mb-1">Top Notes</p>
+          <p className="text-neutral-600">Bergamot, Pink Pepper, Saffron</p>
+        </div>
+        <div>
+          <p className="font-medium text-neutral-900 mb-1">Heart Notes</p>
+          <p className="text-neutral-600">Rose, Jasmine, Oud Wood</p>
+        </div>
+        <div>
+          <p className="font-medium text-neutral-900 mb-1">Base Notes</p>
+          <p className="text-neutral-600">Amber, Musk, Sandalwood, Vanilla</p>
+        </div>
+      </div>
+    ),
   },
   {
-    id: "fit",
-    title: "Fit & Size",
+    id: "details",
+    title: "Fragrance Details",
     content: (
       <div className="space-y-2">
-        <p>True to size - we recommend taking your normal size</p>
-        <p>Relaxed, comfortable fit designed for all-day wear</p>
+        <p>
+          <strong>Concentration:</strong> Eau de Parfum (EDP)
+        </p>
+        <p>
+          <strong>Longevity:</strong> 8-12 hours
+        </p>
+        <p>
+          <strong>Sillage:</strong> Moderate to Strong
+        </p>
+        <p>
+          <strong>Scent Family:</strong> Oriental Woody
+        </p>
         <p className="text-sm text-neutral-600 mt-4">
-          <strong>Size Chart:</strong>
-          <br />
-          XS: Chest 31-33" | Waist 24-26"
-          <br />
-          S: Chest 34-36" | Waist 27-29"
-          <br />
-          M: Chest 37-39" | Waist 30-32"
-          <br />
-          L: Chest 40-42" | Waist 33-35"
+          A luxurious blend that opens with vibrant citrus and spice, evolving into a rich floral heart with precious oud, and settling into a warm, sensual base.
         </p>
       </div>
     ),
   },
   {
-    id: "fabric",
-    title: "Fabric & Care",
+    id: "ingredients",
+    title: "Ingredients & Care",
     content: (
       <div className="space-y-2">
         <p>
-          <strong>Composition:</strong> 78% Recycled Polyester, 22% Elastane
+          <strong>Key Ingredients:</strong> Natural Oud Extract, Bulgarian Rose Oil, Sandalwood Essential Oil, Pure Amber Resin
         </p>
         <p>
-          <strong>Care:</strong> Machine wash cold, gentle cycle. Tumble dry low. Do not bleach or iron.
+          <strong>Care:</strong> Store in a cool, dry place away from direct sunlight. Keep bottle tightly closed when not in use.
         </p>
         <p className="text-sm text-neutral-600">
-          Made with sustainable materials that feel good and do good.
+          Crafted with ethically sourced ingredients and traditional perfumery techniques.
         </p>
       </div>
     ),
@@ -61,10 +78,10 @@ const defaultItems: AccordionItem[] = [
     content: (
       <div className="space-y-2">
         <p>
-          <strong>Shipping:</strong> Free standard shipping on all orders. Express shipping available at checkout.
+          <strong>Shipping:</strong> Complimentary standard shipping on all orders. Fragrances are carefully packaged to ensure safe delivery.
         </p>
         <p>
-          <strong>Returns:</strong> 30-day returns for unworn items with tags attached. Free returns on all orders.
+          <strong>Returns:</strong> 30-day returns for unopened fragrances. Due to the nature of the product, opened bottles cannot be returned for hygiene reasons.
         </p>
       </div>
     ),

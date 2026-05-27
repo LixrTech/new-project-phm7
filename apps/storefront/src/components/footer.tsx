@@ -1,6 +1,7 @@
 import CountrySelect from "@/components/country-select"
 import { useCategories } from "@/lib/hooks/use-categories"
 import { useRegions } from "@/lib/hooks/use-regions"
+import { useStorefrontSettings } from "@/lib/hooks/use-storefront-settings"
 import { getCountryCodeFromPath } from "@/lib/utils/region"
 import { Link, useLocation } from "@tanstack/react-router"
 
@@ -8,6 +9,7 @@ const Footer = () => {
   const location = useLocation()
   const countryCode = getCountryCodeFromPath(location.pathname)
   const baseHref = countryCode ? `/${countryCode}` : ""
+  const { settings } = useStorefrontSettings()
 
   const { data: categories } = useCategories({
     fields: "name,handle",
@@ -39,67 +41,47 @@ const Footer = () => {
               ESSENCE
             </Link>
             <p className="text-neutral-300 max-w-sm text-sm leading-relaxed">
-              Crafting moments of beauty through the art of fragrance.
+              {settings.footer.brandTagline}
             </p>
           </div>
 
           {/* Collections Column */}
           <FooterColumn
             title="COLLECTIONS"
-            links={[
-              {
-                name: "All Fragrances",
-                url: `${baseHref}/store`,
-                isExternal: false,
-              },
-              {
-                name: "Oud",
-                url: `${baseHref}/collections/oud`,
-                isExternal: false,
-              },
-              {
-                name: "kinky + hardcore",
-                url: `${baseHref}/collections/kinky-hardcore`,
-                isExternal: false,
-              },
-              {
-                name: "Coming soon",
-                url: `${baseHref}/store`,
-                isExternal: false,
-              },
-            ]}
+            links={settings.footer.collectionsLinks.map((link: { label: string; url: string }) => ({
+              name: link.label,
+              url: link.url.startsWith("/") ? `${baseHref}${link.url}` : link.url,
+              isExternal: false,
+            }))}
           />
 
           {/* About Column */}
           <FooterColumn
             title="ABOUT"
-            links={[
-              {
-                name: "Our Story",
-                url: `${baseHref}/about`,
-                isExternal: false,
-              },
-              {
-                name: "Craftsmanship",
-                url: `${baseHref}/craftsmanship`,
-                isExternal: false,
-              },
-              {
-                name: "Contact",
-                url: `${baseHref}/contact`,
-                isExternal: false,
-              },
-            ]}
+            links={settings.footer.aboutLinks.map((link: { label: string; url: string }) => ({
+              name: link.label,
+              url: link.url.startsWith("/") ? `${baseHref}${link.url}` : link.url,
+              isExternal: false,
+            }))}
           />
         </div>
 
         {/* Bottom Section */}
         <div className="border-t py-8" style={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            {/* Copyright */}
-            <span className="text-xs text-neutral-400">
-              © {new Date().getFullYear()} Essence. All rights reserved.
-            </span>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div className="flex flex-col gap-4 w-full md:w-auto">
+              {/* Copyright */}
+              <span className="text-xs text-neutral-400">
+                © {new Date().getFullYear()} Elaf. All rights reserved.
+              </span>
+              
+              {/* Region/Country Selector */}
+              {regions && regions.length > 0 && (
+                <div className="w-full md:w-64">
+                  <CountrySelect regions={regions} className="bg-transparent border-white/20 hover:border-white/40" />
+                </div>
+              )}
+            </div>
 
             {/* Links */}
             <div className="flex flex-wrap justify-center md:justify-start items-center gap-6 text-xs">
@@ -140,8 +122,8 @@ const FooterColumn = ({
         {title}
       </h3>
       <ul className="space-y-3">
-        {links.map((link) => (
-          <li key={link.url || link.name} className="text-sm">
+        {links.map((link, index) => (
+          <li key={link.url || link.name || `link-${index}`} className="text-sm">
             {link.isExternal ? (
               <a
                 href={link.url}

@@ -68,7 +68,7 @@ const ImageGalleryEnhanced = memo(function ImageGalleryEnhanced({
         <div className="grid grid-cols-2 gap-3">
           {images.slice(1).map((image, index) => (
             <div 
-              key={image.id}
+              key={image.id ?? image.url ?? index}
               className="relative aspect-[4/5] overflow-hidden bg-sand-50 group cursor-zoom-in"
               onClick={() => openZoom(index + 1)}
             >

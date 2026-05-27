@@ -7,8 +7,6 @@ import { AddressFormData } from "@/lib/types/global"
 import { getStoredCountryCode } from "@/lib/utils/region"
 import { HttpTypes } from "@medusajs/types"
 import { useState } from "react"
-import { sdk } from "@/lib/utils/sdk"
-import { useQuery } from "@tanstack/react-query"
 
 interface AddressStepProps {
   cart: HttpTypes.StoreCart;
@@ -24,20 +22,11 @@ const AddressStep = ({ cart, onNext }: AddressStepProps) => {
   const [email, setEmail] = useState(cart.email || "")
   const storedCountryCode = getStoredCountryCode()
 
-  // Fetch all regions and countries for worldwide shipping
-  const { data: allCountries } = useQuery({
-    queryKey: ["regions", "all-countries"],
-    queryFn: async () => {
-      const { regions } = await sdk.store.region.list({
-        fields: "countries.*",
-      })
-      // Flatten all countries from all regions
-      const countries = regions?.flatMap((region: HttpTypes.StoreRegion) => region.countries || []) || []
-      return countries
-    },
-  })
+  // Use countries from the cart's region only
+  const availableCountries = cart.region?.countries || []
+  
   // Get the default country from the cart's region
-  const defaultCountryCode = cart.region?.countries?.[0]?.iso_2 || storedCountryCode || ""
+  const defaultCountryCode = availableCountries[0]?.iso_2 || storedCountryCode || ""
 
   const [shippingAddress, setShippingAddress] = useState<AddressFormData>({
     first_name: cart.shipping_address?.first_name || "",
@@ -123,7 +112,7 @@ const AddressStep = ({ cart, onNext }: AddressStepProps) => {
           <AddressForm
             addressFormData={shippingAddress}
             setAddressFormData={setShippingAddress}
-            countries={allCountries}
+            countries={availableCountries}
             setIsFormValid={setIsShippingAddressValid}
           />
         </div>
@@ -150,7 +139,7 @@ const AddressStep = ({ cart, onNext }: AddressStepProps) => {
             <AddressForm
               addressFormData={billingAddress}
               setAddressFormData={setBillingAddress}
-              countries={allCountries}
+              countries={availableCountries}
               setIsFormValid={setIsBillingAddressValid}
             />
           </div>

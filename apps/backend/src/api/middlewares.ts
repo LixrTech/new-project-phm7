@@ -3,6 +3,7 @@ import {
 } from "@medusajs/framework/http"
 import path from "path"
 import fs from "fs"
+import { storefrontSettingsMiddlewares } from "./admin/storefront-settings/middlewares"
 
 console.log("[MIDDLEWARES] Loading middlewares.ts file")
 
@@ -11,6 +12,7 @@ console.log("[MIDDLEWARES] Uploads directory:", uploadsDir)
 
 export default defineMiddlewares({
   routes: [
+    ...storefrontSettingsMiddlewares,
     {
       matcher: "/uploads*",
       middlewares: [

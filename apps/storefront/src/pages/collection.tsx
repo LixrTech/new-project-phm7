@@ -1,6 +1,7 @@
 import ProductCard from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { FilterBar } from "@/components/filters/filter-bar"
+import { Breadcrumbs } from "@/components/breadcrumbs"
 import { useProducts } from "@/lib/hooks/use-products"
 import { useState, useMemo } from "react"
 import { useLoaderData } from "@tanstack/react-router"
@@ -238,13 +239,21 @@ export const Collection = ({ collection, region }: CollectionProps) => {
   return (
     <>
       {/* Hero Banner */}
-      <div className="relative w-full h-[300px] md:h-[350px] mb-12 bg-[#a89a85] flex items-center justify-center pt-32">
-        <h1 className="text-5xl md:text-7xl font-display font-semibold text-white tracking-tight text-center leading-none">
-          {collection?.title || "Collection"}
-        </h1>
+      <div className="relative w-full h-[300px] md:h-[350px] mb-12 bg-sand-200 flex items-center justify-center pt-24">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl font-display text-neutral-900 tracking-wide text-center leading-none" style={{ fontWeight: 400, letterSpacing: '0.05em' }}>
+            {collection?.title || "Collection"}
+          </h1>
+        </div>
       </div>
 
-      <div className="content-container py-12">
+      <div className="content-container pb-12">
+        <Breadcrumbs 
+          items={[
+            { label: "Shop", href: "/$countryCode/store" },
+            { label: collection?.title || "" }
+          ]}
+        />
 
       {/* Filter Bar */}
       <FilterBar
