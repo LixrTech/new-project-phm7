@@ -4,12 +4,29 @@ import { useProducts } from "@/lib/hooks/use-products"
 import { useStorefrontSettings } from "@/lib/hooks/use-storefront-settings"
 import ProductCard from "@/components/product-card"
 import { Button } from "@/components/ui/button"
+import { useEffect } from "react"
 
 const Home = () => {
   const location = useLocation()
   const { region } = useLoaderData({ from: "/$countryCode/" })
   const countryCode = getCountryCodeFromPath(location.pathname) || "us"
   const { settings } = useStorefrontSettings()
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible")
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
 
   const { data: productsData } = useProducts({
     region_id: region?.id,
@@ -92,7 +109,7 @@ const Home = () => {
       </section>
 
       {/* Crafted with Intention Section */}
-      <section className="bg-white py-12 sm:py-20 lg:py-28">
+      <section className="bg-white py-12 sm:py-20 lg:py-28 reveal">
         <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
             {/* Left: Image */}
@@ -125,7 +142,7 @@ const Home = () => {
                   params={{ countryCode }}
                 >
                   <button 
-                    className="border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal transition-colors"
+                    className="border border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal transition-all duration-200 hover:transform hover:scale-[1.02]"
                     style={{ letterSpacing: '0.15em' }}
                   >
                     {settings.crafted.buttonText}
@@ -138,7 +155,7 @@ const Home = () => {
       </section>
 
       {/* New Arrivals Section */}
-      <section className="bg-neutral-50 py-12 sm:py-20 lg:py-28">
+      <section className="bg-neutral-50 py-12 sm:py-20 lg:py-28 reveal">
         <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-16">
           <div className="text-center mb-10 sm:mb-14">
             <h2 
@@ -166,7 +183,7 @@ const Home = () => {
 
       {/* Philosophy Section - Dark */}
       <section 
-        className="py-16 sm:py-24 lg:py-32"
+        className="py-16 sm:py-24 lg:py-32 reveal"
         style={{ backgroundColor: '#2b2621' }}
       >
         <div className="max-w-screen-2xl mx-auto text-center px-6 sm:px-8 lg:px-16">
@@ -184,7 +201,7 @@ const Home = () => {
             params={{ countryCode }}
           >
             <button 
-              className="bg-white text-neutral-900 hover:bg-neutral-50 px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal shadow-sm transition-colors"
+              className="bg-white text-neutral-900 hover:bg-neutral-50 px-6 sm:px-8 py-3 sm:py-4 text-[11px] sm:text-xs uppercase font-normal shadow-sm transition-all duration-200 hover:transform hover:scale-[1.02]"
               style={{ letterSpacing: '0.15em' }}
             >
               {settings.philosophy.buttonText}

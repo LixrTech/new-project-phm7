@@ -108,7 +108,7 @@ const ProductCard = ({ product, variant, selectedColor }: ProductCardProps) => {
     <Link
       to="/$countryCode/products/$handle"
       params={{ countryCode: countryCode || "us", handle: product.handle || "" }}
-      className="group flex flex-col w-full bg-white"
+      className="group flex flex-col w-full bg-white hover-lift"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -116,19 +116,19 @@ const ProductCard = ({ product, variant, selectedColor }: ProductCardProps) => {
         <Thumbnail
           thumbnail={primaryImage}
           alt={product.title}
-          className={`absolute inset-0 object-cover object-center w-full h-full transition-opacity duration-500 ${isHovered && hoverImage ? "opacity-0" : "opacity-100"}`}
+          className={`absolute inset-0 object-cover object-center w-full h-full transition-all duration-500 ${isHovered && hoverImage ? "opacity-0 scale-105" : "opacity-100 scale-100"}`}
         />
         {hoverImage && (
           <Thumbnail
             thumbnail={hoverImage}
             alt={`${product.title} - Detail view`}
-            className={`absolute inset-0 object-cover object-center w-full h-full transition-opacity duration-500 ${isHovered ? "opacity-100" : "opacity-0"}`}
+            className={`absolute inset-0 object-cover object-center w-full h-full transition-all duration-500 ${isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"}`}
           />
         )}
       </div>
 
       <div className="flex flex-col text-center mt-3 gap-1 px-1">
-        <h3 className="text-neutral-900 text-xs sm:text-sm" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 400 }}>{product.title}</h3>
+        <h3 className="text-neutral-900 text-xs sm:text-sm transition-colors duration-200 group-hover:text-neutral-600" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 400 }}>{product.title}</h3>
         <div className="text-neutral-600 text-xs sm:text-sm" style={{ fontFamily: 'system-ui, sans-serif', fontWeight: 300 }}>
           <ProductPrice
             product={product}

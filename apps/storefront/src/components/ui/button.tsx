@@ -23,6 +23,8 @@ export const Button = ({
         "rounded-none shadow-none appearance-none border",
         "disabled:opacity-50 disabled:cursor-not-allowed",
         "text-base font-medium",
+        "transition-all duration-200 ease-out",
+        "hover:transform hover:scale-[1.02]",
         size === "full" && "w-full",
         size === "fit" && "w-fit",
         {
