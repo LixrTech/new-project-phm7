@@ -322,10 +322,10 @@ You'll use these credentials to log in to the admin dashboard later.
 This adds sample products so you can see how the store works.
 
 ```bash
-pnpm seed
+npx medusa exec ./src/scripts/seed.ts
 ```
 
-If you prefer to start with an empty store, skip this step.
+**Note:** The current seed script is empty by default. If you prefer to start with an empty store, skip this step and add products manually through the admin dashboard later.
 
 ### Step 4: Get the Publishable API Key
 
@@ -589,12 +589,13 @@ pnpm install
 
 **Backend (from `apps/backend/`):**
 ```bash
-pnpm dev                    # Start development server
-pnpm build                  # Build for production
-pnpm start                  # Start production server
-npx medusa db:migrate       # Run database migrations
-pnpm seed                   # Add sample data
-npx medusa user -e <email> -p <password>  # Create admin user
+pnpm dev                                        # Start development server
+pnpm build                                      # Build for production
+pnpm start                                      # Start production server
+npx medusa db:migrate                           # Run database migrations
+npx medusa exec ./src/scripts/seed.ts           # Add sample data (if seed script has data)
+npx medusa user -e <email> -p <password>        # Create admin user
+npx medusa exec ./src/scripts/get-publishable-key.ts  # Get publishable API key
 ```
 
 **Storefront (from `apps/storefront/`):**
